@@ -10,11 +10,11 @@ def listings():
     """
     Query for all listings and returns them in a list of listing dictionaries
     """
+    print('🍎~~~🍎~~~🍎~~~🍎~~~ listing route')
     listings = Listing.query.all()
     # listings_list = [listing.to_dict() for listing in listings]
     listings_list = []
     for listing in listings:
-        # print('🍎~~~🍎~~~🍎~~~🍎~~~ listing', listing)
         listing_dic = listing.to_dict()
         listing_dic["lisingImages"] = [listing.listing_image.to_dict() for listing.listing_image in listing.listing_images]
         

@@ -15,7 +15,7 @@ export const allListingsThunk = () => async dispatch => {
   const res = await fetch('/api/listings/');
   if (res.ok) {
     const listings = await res.json()
-    await dispatch(allListings(listings))
+    await dispatch(allListings(listings.listings))
     return listings
   } else return null
 }
@@ -24,7 +24,7 @@ export const singleListingsThunk = (listingId) => async dispatch => {
   const res = await fetch(`/api/listings/${listingId}`);
   if (res.ok) {
     const listing = await res.json()
-    await dispatch(singleListingListings(listing))
+    await dispatch(singleListing(listing))
     return listing
   } else {
     const errors = await res.json();
@@ -34,9 +34,9 @@ export const singleListingsThunk = (listingId) => async dispatch => {
 
 
 
-initialState = { allListings: {}, singleListing: {} }
+const initialState = { allListings: {}, singleListing: {} }
 export default function listingsReducer(state = initialState, action) {
-  let newState = {}
+  let newState
   switch (action.type) {
     case ALL_LISTINGS:
       newState = { ...state, allListings: {} };
