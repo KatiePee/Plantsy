@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 class Listing(db.Model):
-    __table__ = 'listings'
+    __tablename__ = 'listings'
 
     if environment == 'production':
         __table_args__ = { 'schema': SCHEMA }
@@ -15,7 +15,8 @@ class Listing(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
     user = db.relationship('User', back_populates='listings')
-
+    listing_images = db.relationship('ListingImages', back_populates='listing', cascade='all, delete-orphan')
+    
     def to_dict(self):
         return {
             'id': self.id,
