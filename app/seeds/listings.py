@@ -1,6 +1,7 @@
 from app.models import db, Listing, environment, SCHEMA
 from sqlalchemy.sql import text
 
+
 def seed_listings():
     listing1 = Listing(
         user_id = 1,

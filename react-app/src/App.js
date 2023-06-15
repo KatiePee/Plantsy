@@ -7,7 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import ListingDetail from "./components/Listings/ListingDetail";
-
+import CreateListing from "./components/Listings/CreateListing";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -28,6 +28,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path='/listings/new'>
+            <CreateListing />
           </Route>
           <Route path='/listings/:listingId'>
             <ListingDetail />

@@ -1,5 +1,6 @@
 const ALL_LISTINGS = 'listings/allListing'
 const SINGLE_LISTING = 'listings/singleListing'
+const CREAT_LISTING = 'listings/creatListing'
 
 const allListings = (listings) => ({
   type: ALL_LISTINGS,
@@ -8,6 +9,11 @@ const allListings = (listings) => ({
 
 const singleListing = (listing) => ({
   type: SINGLE_LISTING,
+  payload: listing
+})
+
+const createListing = (listing) => ({
+  type: CREAT_LISTING,
   payload: listing
 })
 
@@ -32,6 +38,25 @@ export const singleListingsThunk = (listingId) => async dispatch => {
   }
 }
 
+export const createListingThunk = (listing) => async dispatch => {
+  console.log('🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~ create listing thunk', JSON.stringify(listing))
+  const res = await fetch('/api/listings/new', {
+    method: 'POST',
+    body: JSON.stringify(listing)
+  })
+
+  if (res.ok) {
+    const newListing = await res.json();
+    console.log('🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~ create listing thunk res', newListing)
+    await dispatch(createListing(newListing))
+    return newListing;
+  } else {
+    const errors = await res.json();
+    console.log('🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~ create listing thunk res', errors)
+    return errors;
+  }
+}
+
 
 
 const initialState = { allListings: {}, singleListing: {} }
@@ -44,6 +69,10 @@ export default function listingsReducer(state = initialState, action) {
       return newState;
     case SINGLE_LISTING:
       newState = { ...state, singleListing: { ...action.payload } }
+      return newState
+    case CREAT_LISTING:
+      newState = { ...state, allListings: { ...state.allListings }, singleListing: { ...action.payload } }
+      newState.allListings[action.payload.id] = action.payload
       return newState
     default:
       return state
