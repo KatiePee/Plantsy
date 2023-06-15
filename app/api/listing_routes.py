@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Listing, User, ListingImages, db
 from app.forms import ListingForm
+from .auth_routes import validation_errors_to_error_messages
 
 listing_routes = Blueprint('listings', __name__)
 
@@ -46,7 +47,7 @@ def create_listing():
     print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>', listingForm)
     print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>',     listingForm['csrf_token'].data)
     print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>',     request.cookies['csrf_token'])
-    print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>', listingForm.errors)
+    print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>', listingForm.data)
 
         # print('😈~~~😈~~~😈~~~😈~~~😈~~~ create listing route', listing)
     err_obj = {}
@@ -78,10 +79,13 @@ def create_listing():
             db.session.commit()
             
             image_dict = new_image.to_dict()
-            listing["postImages"].append(image_dict)
+            print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~> HITING img dict', image_dict)
+            listing["listingImages"].append(image_dict)
+
     if listingForm.errors:
-        print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~> HITING NOT VALIDATE',)
-        return listingForm.errors
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+        # return listingForm.errors
+    #  {'errors': validation_errors_to_error_messages(form.errors)}, 401
     
     return listing
 

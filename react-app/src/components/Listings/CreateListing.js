@@ -34,18 +34,20 @@ export default function CreateListing() {
     _handleErrors();
     console.log('✏️~~~~~~', title, description, price, image)
     console.log(errors)
-
+    const images = []
+    images.push(image)
     if (!Object.values(errors).length) {
-      // const listingFormData = new FormData();
-      // listingFormData.append("title", title);
-      // listingFormData.append("description", description);
-      // listingFormData.append("price", price);
-      // listingFormData.append("image", image);
+      const listingFormData = new FormData();
+      listingFormData.append("title", title);
+      listingFormData.append("description", description);
+      listingFormData.append("price", price);
+      listingFormData.append("images", images);
       // for (let image of images) {
       //   postFormData.append("images", image);
       // }
       // console.log('🍎~🍎~🍎~🍎~🍎~~~ create listing listingFormData', listingFormData)
-      const data = await dispatch(createListingThunk({ title, description, price, image }));
+      // const data = await dispatch(createListingThunk({ title, description, price, images: image }));
+      const data = await dispatch(createListingThunk(listingFormData));
 
       if (data) {
         formErrors.validationErrors = data;
@@ -60,7 +62,7 @@ export default function CreateListing() {
   return (
     <div className="listing-form__wrapper">
       <h3>Create a new Listing</h3>
-      <form encType="multipart/form-data">
+      <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <div className="listing-form__title">
           <label>
             <input
@@ -110,7 +112,7 @@ export default function CreateListing() {
           </label>
         </div>
         <div className="listing-form-btn-wrapper">
-          <button className="signup-btn" onClick={handleSubmit}>
+          <button className="signup-btn" type='submit'>
             Sign Up
           </button>
         </div>

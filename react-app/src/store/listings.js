@@ -39,10 +39,10 @@ export const singleListingsThunk = (listingId) => async dispatch => {
 }
 
 export const createListingThunk = (listing) => async dispatch => {
-  console.log('🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~ create listing thunk', JSON.stringify(listing))
+  console.log('🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~🤡~~~ create listing thunk', listing)
   const res = await fetch('/api/listings/new', {
     method: 'POST',
-    body: JSON.stringify(listing)
+    body: listing
   })
 
   if (res.ok) {
