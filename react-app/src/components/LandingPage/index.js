@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { allListingsThunk } from '../../store/listings'
+import ListingCard from '../Listings/ListingCard'
 
 const LandingPage = () => {
   const listingsState = useSelector((state => state.listings.allListings))
@@ -23,6 +24,10 @@ const LandingPage = () => {
     <div>
       {listings.map(listing =>
         <p>{listing.title}</p>)}
+
+      {listings.map(listing => (
+        <ListingCard listing={listing} key={listing.id} />
+      ))}
     </div>
   )
 }
