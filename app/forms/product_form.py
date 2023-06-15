@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DecimalField
 from wtforms.validators import DataRequired, Email, ValidationError, NumberRange
-from app.models import Listing, User
+from app.models import Product, User
       
-class ListingForm(FlaskForm):
+class ProductForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     price = DecimalField(label='Price', places=2, validators=[NumberRange(min=0)])

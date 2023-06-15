@@ -1,8 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
-class Listing(db.Model):
-    __tablename__ = 'listings'
+class Product(db.Model):
+    __tablename__ = 'products'
 
     if environment == 'production':
         __table_args__ = { 'schema': SCHEMA }
@@ -14,8 +14,8 @@ class Listing(db.Model):
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
-    user = db.relationship('User', back_populates='listings')
-    listing_images = db.relationship('ListingImages', back_populates='listing', cascade='all, delete-orphan')
+    user = db.relationship('User', back_populates='products')
+    product_images = db.relationship('ProductImages', back_populates='product', cascade='all, delete-orphan')
     
     def to_dict(self):
         return {

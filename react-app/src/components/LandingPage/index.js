@@ -1,18 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { allListingsThunk } from '../../store/listings'
-import ListingCard from '../Listings/ListingCard'
+import { allProductsThunk } from '../../store/products'
+import ProductCard from '../Products/ProductCard'
 
 const LandingPage = () => {
-  const listingsState = useSelector((state => state.listings.allListings))
-  const listings = listingsState ? Object.values(listingsState) : [];
+  const productsState = useSelector((state => state.products.allProducts))
+  const products = productsState ? Object.values(productsState) : [];
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
-      await dispatch(allListingsThunk())
+      await dispatch(allProductsThunk())
       setIsLoading(false)
     }
     fetchData()
@@ -22,11 +22,11 @@ const LandingPage = () => {
 
   return (
     <div>
-      {listings.map(listing =>
-        <p>{listing.title}</p>)}
+      {products.map(product =>
+        <p>{product.title}</p>)}
 
-      {listings.map(listing => (
-        <ListingCard listing={listing} key={listing.id} />
+      {products.map(product => (
+        <ProductCard product={product} key={product.id} />
       ))}
     </div>
   )

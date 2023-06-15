@@ -6,8 +6,9 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
-import ListingDetail from "./components/Listings/ListingDetail";
-import CreateListing from "./components/Listings/CreateListing";
+import ProductDetail from "./components/Products/ProductDetail";
+import CreateProduct from "./components/Products/CreateProduct";
+import EditProductModal from "./components/Products/EditProductModal";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,11 +30,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path='/listings/new'>
-            <CreateListing />
+          <Route path='/products/new'>
+            <CreateProduct />
           </Route>
-          <Route path='/listings/:listingId'>
-            <ListingDetail />
+          <Route path='/products/:productId/edit'>
+            <EditProductModal />
+          </Route>
+          <Route path='/products/:productId'>
+            <ProductDetail />
           </Route>
         </Switch>
       )}
