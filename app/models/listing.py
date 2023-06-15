@@ -9,8 +9,8 @@ class Listing(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    title = db.Column(db.String(40), nullable=False)
-    description = db.Column(db.String(40), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(2040), nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
