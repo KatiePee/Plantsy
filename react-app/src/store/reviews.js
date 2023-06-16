@@ -1,6 +1,7 @@
 const PRODUCT_REVIEWS = 'reviews/productReviews'
 const SINGLE_REVIEW = 'reviews/singleReview'
 const DELETE_REVIEW = 'reviews/deleteReview'
+const CREATE_REVIEW = 'reviews/createReview'
 
 const productReviews = (reviews) => ({
   type: PRODUCT_REVIEWS,
@@ -15,6 +16,11 @@ const singleReview = (review) => ({
 const deleteReview = (reviewId) => ({
   type: DELETE_REVIEW,
   payload: reviewId
+})
+
+const createReview = (review) => ({
+  type: CREATE_REVIEW,
+  payload: review
 })
 
 export const productReviewsThunk = (productId) => async dispatch => {
@@ -41,6 +47,21 @@ export const deleteReviewThunk = (id) => async dispatch => {
   }
 }
 
+export const createReviewThunk = (review, productId) => async dispatch => {
+  const res = await fetch(`/api/products/${productId}/review/new`, {
+    method: 'POST',
+    body: review
+  })
+  if (res.ok) {
+    const newReview = await res.json();
+    await dispatch(createReview(newReview))
+    return newReview;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
 const initialState = { product: {} }
 export default function reviewsReducer(state = initialState, action) {
   let newState
@@ -49,6 +70,10 @@ export default function reviewsReducer(state = initialState, action) {
       newState = { ...state, product: {} };
       action.payload.forEach(el => newState.product[el.id] = el)
       return newState;
+    case CREATE_REVIEW:
+      newState = { ...state, product: { ...state.product } }
+      newState.product[action.payload.id] = action.payload
+      return newState
     case DELETE_REVIEW:
       newState = { ...state, product: { ...state.product } }
       delete newState.product[action.payload];

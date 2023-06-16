@@ -21,3 +21,4 @@ def delete_review(id):
     db.session.delete(review)
     db.session.commit()
     return {'message': 'Review successfully deleted'}
+

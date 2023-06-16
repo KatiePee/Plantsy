@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Product, User, ProductImages, db, Review
-from app.forms import ProductForm
+from app.forms import ProductForm, ReviewForm
 from .auth_routes import validation_errors_to_error_messages
 
 product_routes = Blueprint('products', __name__)
@@ -174,3 +174,31 @@ def reviews(id):
     reviews = Review.query.filter_by(product_id = id).all()
     return {'reviews': [review.to_dict() for review in reviews]}
     
+@product_routes.route('/<int:id>/review/new')
+@login_required
+def create_review(id):
+    """
+    Create a review for a product by product id
+    """
+
+    request_body = request.data  # Access the raw request body
+    print('🌿~~🌿~~🌿~~🌿~~~ req body', request_body)
+    form = ReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        new_review = Review(
+            user_id = current_user.id,
+            product_id = id,
+            review = form.data['review'],
+            stars = form.data['stars']
+        )
+
+        db.session.add(new_review)
+        db.session.commit()
+
+        review = new_review.to_dict()
+        return review
+    
+    if form.errors:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
