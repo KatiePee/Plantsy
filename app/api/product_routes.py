@@ -107,7 +107,9 @@ def edit_product(id):
     Create a product using the post form
     """
     product = Product.query.get(id)
-
+    if current_user.id != product.user_id:
+        return {'errors': "unauthorized"}, 401
+    
     print('☠️~☠️~☠️~☠️~☠️~☠️~~~~~ edit product route product', product)    
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -132,3 +134,17 @@ def edit_product(id):
     
     return product
 
+@product_routes.route('/<int:id>/delete', methods=['DELETE'])
+@login_required
+def delete_product(id):
+    """
+    Delete a product from the product id
+    """
+    product = Product.query.get(id)
+   
+    if current_user.id != product.user_id:
+        return {'errors': "unauthorized"}, 401
+    
+    db.session.delete(product)
+    db.session.commit()
+    return {'message': 'Post successfully deleted'}

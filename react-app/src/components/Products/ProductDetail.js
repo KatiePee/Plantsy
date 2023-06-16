@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { singleProductsThunk } from "../../store/products"
 import OpenModalButton from "../OpenModalButton"
 import EditProductModal from "./EditProductModal"
+import DeleteProductModal from "./DeleteProductModal"
 
 const ProductDetail = () => {
   const { productId } = useParams()
@@ -35,6 +36,11 @@ const ProductDetail = () => {
         buttonText="Edit product"
         // onItemClick={closeMenu}
         modalComponent={<EditProductModal product={product} />}
+      />
+      <OpenModalButton
+        buttonText="Delete product"
+        // onItemClick={closeMenu}
+        modalComponent={<DeleteProductModal product={product} />}
       />
       <div className="product-detail__images">
         <img src={image.imageUrl} />

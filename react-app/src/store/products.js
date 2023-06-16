@@ -2,6 +2,7 @@ const ALL_PRODUCTS = 'products/allProduct'
 const SINGLE_PRODUCT = 'products/singleProduct'
 const CREATE_PRODUCT = 'products/createProduct'
 const EDIT_PRODUCT = 'products/editProduct'
+const DELETE_PRODUCT = 'products/deleteProduct'
 
 const allProducts = (products) => ({
   type: ALL_PRODUCTS,
@@ -21,6 +22,11 @@ const createProduct = (product) => ({
 const editProduct = (product) => ({
   type: EDIT_PRODUCT,
   payload: product
+})
+
+const deleteProduct = (productId) => ({
+  type: DELETE_PRODUCT,
+  payload: productId
 })
 
 export const allProductsThunk = () => async dispatch => {
@@ -60,8 +66,9 @@ export const createProductThunk = (product) => async dispatch => {
   }
 }
 
-export const editProductThunk = (product) => async dispatch => {
-  const res = await fetch('/api/products/edit', {
+export const editProductThunk = (product, id) => async dispatch => {
+  console.log('👺~👺~👺~👺~~~~~~~~~~id~~~~~~~>', id)
+  const res = await fetch(`/api/products/${id}/edit`, {
     method: 'PUT',
     body: product
   })
@@ -76,6 +83,20 @@ export const editProductThunk = (product) => async dispatch => {
   }
 }
 
+export const deleteProductThunk = (id) => async dispatch => {
+  const res = await fetch(`/api/products/${id}/delete`, {
+    method: 'DELETE'
+  })
+
+  if (res.ok) {
+    const deleted = await res.json()
+    await dispatch(deleteProduct(id))
+    return deleted
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+}
 
 
 
@@ -99,6 +120,11 @@ export default function productsReducer(state = initialState, action) {
       newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload } }
       newState.allProducts[action.payload.id] = action.payload
       return newState
+    case DELETE_PRODUCT:
+      newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload } }
+      delete newState.allProducts[action.payload];
+      delete newState.singleProduct[action.payload];
+      return state
     default:
       return state
   }
