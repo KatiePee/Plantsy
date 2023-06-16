@@ -5,7 +5,10 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-
+import LandingPage from "./components/LandingPage";
+import ProductDetail from "./components/Products/ProductDetail";
+import CreateProduct from "./components/Products/CreateProduct";
+import EditProductModal from "./components/Products/EditProductModal";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,11 +21,23 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+            <LandingPage />
+          </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path='/products/new'>
+            <CreateProduct />
+          </Route>
+          <Route path='/products/:productId/edit'>
+            <EditProductModal />
+          </Route>
+          <Route path='/products/:productId'>
+            <ProductDetail />
           </Route>
         </Switch>
       )}
