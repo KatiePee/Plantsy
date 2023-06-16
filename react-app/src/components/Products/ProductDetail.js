@@ -5,17 +5,23 @@ import { singleProductsThunk } from "../../store/products"
 import OpenModalButton from "../OpenModalButton"
 import EditProductModal from "./EditProductModal"
 import DeleteProductModal from "./DeleteProductModal"
+import { productReviewsThunk } from "../../store/reviews"
+import ReviewCard from "../Reviews/ReviewCard"
 
 const ProductDetail = () => {
   const { productId } = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const product = useSelector(state => state.products.singleProduct)
+  const reviewsState = useSelector(state => state.reviews.product)
   const user = useSelector(state => state.session.user)
+  const reviews = reviewsState ? Object.values(reviewsState) : [];
+  console.log('👺~~~👺~~~👺~~~👺~~~👺~~~👺~~~ review card review', reviews)
 
   useEffect(() => {
     async function fetchData() {
       await dispatch(singleProductsThunk(productId))
+      await dispatch(productReviewsThunk(productId))
       setIsLoading(false)
     }
     fetchData()
@@ -23,7 +29,7 @@ const ProductDetail = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  const { id, title, description, price, userId, productImages, createdAt } = product
+  const { id, title, description, price, userId, productImages, createdAt, numReviews, avgRating } = product
 
   //TODO: set up preview image
   const image = productImages[0]
@@ -53,8 +59,15 @@ const ProductDetail = () => {
         <button>Add to cart</button>
       </div>
 
-      <div className="product-detail__reviews">
-        Review Info
+      <div className="product-detail__reviews-wrapper">
+        <p className='product-detail__num-reviews'>{numReviews} reviews</p>
+        <p className='product-detail__avg-rating'>{avgRating} stars</p>
+        <div className="product-detail__reviews">
+
+        </div>
+        {reviews.map(review => (
+          <ReviewCard review={review} key={review.id} />
+        ))}
       </div>
 
     </div>

@@ -21,7 +21,7 @@ class Review(db.Model):
        return {
            'id': self.id,
             "userId": self.user_id,
-            "productId": self.productId,
+            "productId": self.product_id,
             "review": self.review,
             "stars": self.stars,
             "createdAt": self.created_at

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Product, User, ProductImages, db
+from app.models import Product, User, ProductImages, db, Review
 from app.forms import ProductForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -16,6 +16,15 @@ def products():
     for product in products:
         product_dic = product.to_dict()
         product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+        product_dic['seller'] = product.user.to_dict()
+        del product_dic['seller']['id']
+        product_dic['numReviews'] = len(product.reviews)
+        if product.reviews:
+            avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
+            product_dic['avgRating'] = round(avg_rating, 2)
+        else:
+            product_dic['avgRating'] = 0
+        
         
         products_list.append(product_dic)
 
@@ -30,6 +39,14 @@ def single_product(id):
     product = Product.query.get(id)
     product_dic = product.to_dict()
     product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+    product_dic['seller'] = product.user.to_dict()
+    del product_dic['seller']['id']
+    product_dic['numReviews'] = len(product.reviews)
+    if product.reviews:
+        avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
+        product_dic['avgRating'] = round(avg_rating, 2)
+    else:
+        product_dic['avgRating'] = 0
     return product_dic
 
 @product_routes.route('/new', methods=['POST'])
@@ -151,4 +168,9 @@ def delete_product(id):
 
 @product_routes.route('/<int:id>/reviews')
 def reviews(id):
-    pass
+    """
+    Query for all review for a product by product id
+    """
+    reviews = Review.query.filter_by(product_id = id).all()
+    return {'reviews': [review.to_dict() for review in reviews]}
+    
