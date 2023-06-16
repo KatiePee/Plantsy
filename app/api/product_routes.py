@@ -148,3 +148,7 @@ def delete_product(id):
     db.session.delete(product)
     db.session.commit()
     return {'message': 'Post successfully deleted'}
+
+@product_routes.route('/<int:id>/reviews')
+def reviews(id):
+    pass
