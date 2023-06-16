@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import OpenModalButton from "../OpenModalButton"
+import EditReviewModal from "./EditReviewModal"
 import DeleteReviewModal from "./DeleteReveiw"
 
 const ReviewCard = ({ review }) => {
@@ -15,6 +16,13 @@ const ReviewCard = ({ review }) => {
           buttonText="delete"
           // onItemClick={closeMenu}
           modalComponent={<DeleteReviewModal review={review} />}
+        />
+      )}
+      {user.id == review.userId && (
+        <OpenModalButton
+          buttonText="Edit Review"
+          // onItemClick={closeMenu}
+          modalComponent={<EditReviewModal prop={review} />}
         />
       )}
     </div>

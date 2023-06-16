@@ -2,6 +2,7 @@ const PRODUCT_REVIEWS = 'reviews/productReviews'
 const SINGLE_REVIEW = 'reviews/singleReview'
 const DELETE_REVIEW = 'reviews/deleteReview'
 const CREATE_REVIEW = 'reviews/createReview'
+const EDIT_REVIEW = 'reviews/editReview'
 
 const productReviews = (reviews) => ({
   type: PRODUCT_REVIEWS,
@@ -19,6 +20,11 @@ const deleteReview = (reviewId) => ({
 })
 
 const createReview = (review) => ({
+  type: CREATE_REVIEW,
+  payload: review
+})
+
+const editReview = (review) => ({
   type: CREATE_REVIEW,
   payload: review
 })
@@ -51,11 +57,33 @@ export const createReviewThunk = (review, productId) => async dispatch => {
   console.log('🤒~~~~~~~~~~create thunk review, prod id', review, productId)
   const res = await fetch(`/api/products/${productId}/review/new`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'  // Set the content type to JSON
+    },
     body: JSON.stringify(review)
   })
   if (res.ok) {
     const newReview = await res.json();
     await dispatch(createReview(newReview))
+    return newReview;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+}
+
+export const editReviewThunk = (review, id) => async dispatch => {
+  const res = await fetch(`/api/reviews/${id}/edit`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'  // Set the content type to JSON
+    },
+    body: JSON.stringify(review)
+  })
+
+  if (res.ok) {
+    const newReview = await res.json();
+    await dispatch(editReview(newReview))
     return newReview;
   } else {
     const errors = await res.json();
@@ -78,6 +106,10 @@ export default function reviewsReducer(state = initialState, action) {
     case DELETE_REVIEW:
       newState = { ...state, product: { ...state.product } }
       delete newState.product[action.payload];
+      return newState
+    case EDIT_REVIEW:
+      newState = { ...state, product: { ...state.product } }
+      newState.product[action.payload.id] = action.payload
       return newState
     default:
       return state

@@ -182,7 +182,7 @@ def create_review(id):
     """
 
     request_body = request.data  # Access the raw request body
-    print('🌿~~🌿~~🌿~~🌿~~~ req body', request_body)
+    print('🌿~~🌿~~🌿~~🌿~~~ req body', request_body, id)
    
     form = ReviewForm()
     print('👿👿👿👿👿👿👿~~~~~~~~ form data', form.data)
