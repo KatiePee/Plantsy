@@ -48,9 +48,10 @@ export const deleteReviewThunk = (id) => async dispatch => {
 }
 
 export const createReviewThunk = (review, productId) => async dispatch => {
+  console.log('🤒~~~~~~~~~~create thunk review, prod id', review, productId)
   const res = await fetch(`/api/products/${productId}/review/new`, {
     method: 'POST',
-    body: review
+    body: JSON.stringify(review)
   })
   if (res.ok) {
     const newReview = await res.json();

@@ -7,6 +7,7 @@ import EditProductModal from "./EditProductModal"
 import DeleteProductModal from "./DeleteProductModal"
 import { productReviewsThunk } from "../../store/reviews"
 import ReviewCard from "../Reviews/ReviewCard"
+import CreateReviewModal from "../Reviews/CreateReviewModal"
 
 const ProductDetail = () => {
   const { productId } = useParams()
@@ -60,6 +61,10 @@ const ProductDetail = () => {
       </div>
 
       <div className="product-detail__reviews-wrapper">
+        <OpenModalButton
+          buttonText="Post Your Review"
+          modalComponent={<CreateReviewModal props={{ product, user }} />}
+        />
         <p className='product-detail__num-reviews'>{numReviews} reviews</p>
         <p className='product-detail__avg-rating'>{avgRating} stars</p>
         <div className="product-detail__reviews">

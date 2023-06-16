@@ -174,7 +174,7 @@ def reviews(id):
     reviews = Review.query.filter_by(product_id = id).all()
     return {'reviews': [review.to_dict() for review in reviews]}
     
-@product_routes.route('/<int:id>/review/new')
+@product_routes.route('/<int:id>/review/new', methods=['POST'])
 @login_required
 def create_review(id):
     """
@@ -183,7 +183,9 @@ def create_review(id):
 
     request_body = request.data  # Access the raw request body
     print('🌿~~🌿~~🌿~~🌿~~~ req body', request_body)
+   
     form = ReviewForm()
+    print('👿👿👿👿👿👿👿~~~~~~~~ form data', form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -194,6 +196,8 @@ def create_review(id):
             stars = form.data['stars']
         )
 
+        print('👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿new review', new_review)
+
         db.session.add(new_review)
         db.session.commit()
 
@@ -201,4 +205,5 @@ def create_review(id):
         return review
     
     if form.errors:
+        print('👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿form errors', form.errors)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
