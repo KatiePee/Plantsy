@@ -33,7 +33,6 @@ def login():
     """
     Logs a user in
     """
-    print('🤡~~🤡~~🤡~~🤡~~🤡~~🤡~~~ login route')
     form = LoginForm()
     # Get the csrf_token from the request cookie and put it into the
     # form manually to validate_on_submit can be used
@@ -43,11 +42,8 @@ def login():
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         user1 = User.query.get(current_user.id)
-        print('🤡~~🤡~~🤡~~🤡~~🤡~~🤡~~~ login route, current user', user1)
         users = User.query.all()
         test = {'users': [user.to_dict() for user in users]}
-        print('🤡~~🤡~~🤡~~🤡~~🤡~~🤡~~~  login route query for all users~', test)
-        print('🤡~~🤡~~🤡~~🤡~~🤡~~🤡~~~ login route user', user.to_dict() )
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

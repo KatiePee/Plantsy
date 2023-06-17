@@ -8,5 +8,4 @@ class ReviewForm(FlaskForm):
     stars = IntegerField('Stars', validators=[DataRequired()])
     # review = StringField('Title')
     # stars = IntegerField('Stars')
-    print('🤑~~~~~~review form')
    
