@@ -124,7 +124,7 @@ export default function productsReducer(state = initialState, action) {
       newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload } }
       delete newState.allProducts[action.payload];
       delete newState.singleProduct[action.payload];
-      return state
+      return newState
     default:
       return state
   }

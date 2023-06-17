@@ -1,0 +1,131 @@
+.product-card__wrapper {
+  position: relative;
+}
+
+.product-card__wishlist {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  background-color: red;
+  padding: .3rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-card__price {
+  position: absolute;
+  bottom: .5rem;
+  left: .5rem;
+  /* background-color: red; */
+  border: 1px solid lightgrey;
+  background-color: white;
+  padding: 6px 9px;
+  border-radius: 15px;
+  font-size: 13px;
+}
+
+.product-card__wrapper:hover {
+  /* box-shadow: 0 0 2px rgba(0, 0, 0, .2) rgba(0, 0, 0, .1) */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0);
+  cursor: pointer;
+}
+
+.product-card__wishlist:hover {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0);
+}
+
+.product-detail__wrapper {
+  padding-left: 5rem;
+  padding-right: 5rem;
+  border: 2px solid purple;
+}
+
+.product-detail__main {
+  border: 2px solid purple;
+  display: flex;
+}
+
+.product-detail__side-images {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid red;
+  width: fit-content;
+  gap: 1rem;
+
+}
+
+.product-detail__image-side {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 5px;
+}
+
+.product-detail__images {
+  /* background-color: pink; */
+  border: 2px solid pink;
+  display: flex;
+  flex: 3
+}
+
+.product-detail__preview-image {
+  border: 1px solid green;
+  width: 35rem;
+  height: 35rem;
+
+}
+
+.product-detail__preview {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 2px solid blue;
+}
+
+.product-detail__wishlist {
+  align-self: flex-start;
+  position: absolute;
+  top: .5rem;
+  right: 0;
+}
+
+.icons {
+  background-color: rgb(249, 249, 249);
+  border: 1px solid lightgray;
+  padding: .3rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  box-shadow: 0px 0px 10px rgb(117, 116, 116);
+}
+
+.icons:hover {
+  box-shadow: 0px 0px 10px rgb(75, 75, 75);
+  background-color: rgb(255, 255, 255);
+  border: none;
+}
+
+.product-detail__info {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid orange;
+  flex: 2;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.product-detail__cart {
+  /* flex: 1 */
+  width: 100%;
+}
+
+.product-detail__reviews-wrapper {
+  border: 2px solid lawngreen;
+}

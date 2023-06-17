@@ -15,6 +15,8 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
     user = db.relationship('User', back_populates='products')
+    reviews = db.relationship('Review', back_populates='product', cascade="all, delete-orphan")
+
     product_images = db.relationship('ProductImages', back_populates='product', cascade='all, delete-orphan')
     
     def to_dict(self):

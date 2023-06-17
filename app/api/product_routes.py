@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Product, User, ProductImages, db
-from app.forms import ProductForm
+from app.models import Product, User, ProductImages, db, Review
+from app.forms import ProductForm, ReviewForm
 from .auth_routes import validation_errors_to_error_messages
 
 product_routes = Blueprint('products', __name__)
@@ -16,6 +16,15 @@ def products():
     for product in products:
         product_dic = product.to_dict()
         product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+        product_dic['seller'] = product.user.to_dict()
+        del product_dic['seller']['id']
+        product_dic['numReviews'] = len(product.reviews)
+        if product.reviews:
+            avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
+            product_dic['avgRating'] = round(avg_rating, 2)
+        else:
+            product_dic['avgRating'] = 0
+        
         
         products_list.append(product_dic)
 
@@ -30,6 +39,14 @@ def single_product(id):
     product = Product.query.get(id)
     product_dic = product.to_dict()
     product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+    product_dic['seller'] = product.user.to_dict()
+    del product_dic['seller']['id']
+    product_dic['numReviews'] = len(product.reviews)
+    if product.reviews:
+        avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
+        product_dic['avgRating'] = round(avg_rating, 2)
+    else:
+        product_dic['avgRating'] = 0
     return product_dic
 
 @product_routes.route('/new', methods=['POST'])
@@ -147,4 +164,46 @@ def delete_product(id):
     
     db.session.delete(product)
     db.session.commit()
-    return {'message': 'Post successfully deleted'}
+    return {'message': 'Product successfully deleted'}
+
+@product_routes.route('/<int:id>/reviews')
+def reviews(id):
+    """
+    Query for all review for a product by product id
+    """
+    reviews = Review.query.filter_by(product_id = id).all()
+    return {'reviews': [review.to_dict() for review in reviews]}
+    
+@product_routes.route('/<int:id>/review/new', methods=['POST'])
+@login_required
+def create_review(id):
+    """
+    Create a review for a product by product id
+    """
+
+    request_body = request.data  # Access the raw request body
+    print('🌿~~🌿~~🌿~~🌿~~~ req body', request_body, id)
+   
+    form = ReviewForm()
+    print('👿👿👿👿👿👿👿~~~~~~~~ form data', form.data)
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        new_review = Review(
+            user_id = current_user.id,
+            product_id = id,
+            review = form.data['review'],
+            stars = form.data['stars']
+        )
+
+        print('👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿new review', new_review)
+
+        db.session.add(new_review)
+        db.session.commit()
+
+        review = new_review.to_dict()
+        return review
+    
+    if form.errors:
+        print('👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿form errors', form.errors)
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 401
