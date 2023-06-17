@@ -14,6 +14,7 @@ export default function CreateReviewModal({ props: { product, user } }) {
   const [showError, setShowError] = useState(false);
 
   const dispatch = useDispatch();
+
   let disable = false
   review.length > 9 || (disable = true);
   stars || (disable = true);

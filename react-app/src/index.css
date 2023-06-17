@@ -1,1 +1,18 @@
 /* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lato:wght@100;300;400;700;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+}
+
+:root {
+  --logo-font: 'Dancing Script', cursive;
+  --picture-color: #FEE3D8
+}
+
+li {
+  list-style: none;
+}

@@ -8,6 +8,7 @@ import DeleteProductModal from "./DeleteProductModal"
 import { productReviewsThunk } from "../../store/reviews"
 import ReviewCard from "../Reviews/ReviewCard"
 import CreateReviewModal from "../Reviews/CreateReviewModal"
+import './Products.css'
 
 const ProductDetail = () => {
   const { productId } = useParams()
@@ -17,7 +18,6 @@ const ProductDetail = () => {
   const reviewsState = useSelector(state => state.reviews.product)
   const user = useSelector(state => state.session.user)
   const reviews = reviewsState ? Object.values(reviewsState) : [];
-  console.log('👺~~~👺~~~👺~~~👺~~~👺~~~👺~~~ review card review', reviews)
 
   useEffect(() => {
     async function fetchData() {
@@ -34,30 +34,47 @@ const ProductDetail = () => {
 
   //TODO: set up preview image
   const image = productImages[0]
+  const arr = [1, 2, 3, 4, 5]
 
-
-  console.log('🤡~~🤡~~🤡~~🤡~~~~~ product detail page')
   return (
     <div className="product-detail__wrapper">
-      <OpenModalButton
-        buttonText="Edit product"
-        // onItemClick={closeMenu}
-        modalComponent={<EditProductModal product={product} />}
-      />
-      <OpenModalButton
-        buttonText="Delete product"
-        // onItemClick={closeMenu}
-        modalComponent={<DeleteProductModal product={product} />}
-      />
-      <div className="product-detail__images">
-        <img src={image.imageUrl} />
-      </div>
 
-      <div className="product-detail__info">
-        <p className="product-detail__price">$ {price}</p>
-        <p className="product-detail__title">{title}</p>
-        <p className="product-detail__description">$ {description}</p>
-        <button>Add to cart</button>
+      <div className="product-detail__main">
+
+        <div className="product-detail__images">
+
+          <div className="prodct-detail__side-images">
+            {arr.map(img => (
+              <img className="product-detail__image-side" src={image.imageUrl} />
+            ))}
+          </div >
+          <div className="product-detail__preview">
+
+            <div className="product-detail__left-arrow icons">
+              <i class="fa-solid fa-arrow-left"></i>
+            </div>
+
+            <img className="product-detail__preview-image" src={image.imageUrl} />
+
+            <div className="product-detail__left-arrow icons">
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div className='product-detail__wishlist icons'>
+              {/* <i class="fa-solid fa-heart"></i> */}
+              <i class="fa-regular fa-heart"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="product-detail__info">
+          <p className="product-detail__price">$ {price}</p>
+          <p className="product-detail__title">{title}</p>
+          <p className="product-detail__description">$ {description}</p>
+          <button>Add to cart</button>
+        </div>
+
       </div>
 
       <div className="product-detail__reviews-wrapper">
@@ -75,6 +92,16 @@ const ProductDetail = () => {
         ))}
       </div>
 
+      <OpenModalButton
+        buttonText="Edit product"
+        // onItemClick={closeMenu}
+        modalComponent={<EditProductModal product={product} />}
+      />
+      <OpenModalButton
+        buttonText="Delete product"
+        // onItemClick={closeMenu}
+        modalComponent={<DeleteProductModal product={product} />}
+      />
     </div>
   )
 }
