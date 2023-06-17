@@ -15,7 +15,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    listings = db.relationship('Listing', back_populates='user', cascade="all, delete-orphan")
+    products = db.relationship('Product', back_populates='user', cascade="all, delete-orphan")
+    reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
 
     @property
     def password(self):
@@ -32,6 +33,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'firstName': self.first_name,
-            'lastName': self.first_name,
+            'lastName': self.last_name,
             'email': self.email
         }
