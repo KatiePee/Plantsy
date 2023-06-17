@@ -57,20 +57,13 @@ def create_product():
     """
     request_body = request.data  # Access the raw request body
     # json_data = request.get_json()  # Parse request body as JSON
-    print('🌿~~🌿~~🌿~~🌿~~~ req body', request_body)
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     product = {}
-    print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>', form)
-    print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>',     form['csrf_token'].data)
-    print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>',     request.cookies['csrf_token'])
-    print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>', form.data)
 
-        # print('😈~~~😈~~~😈~~~😈~~~😈~~~ create product route', product)
     err_obj = {}
     if form.validate_on_submit():
 
-        print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~> HITING FORM VALIDATE',)
         new_product = Product(
             user_id=current_user.id,
             title=form.data['title'],
@@ -94,9 +87,7 @@ def create_product():
 
         db.session.add(new_image)
         db.session.commit()
-        print('🤡~~~🤡~~~🤡~~~🤡~~~~~~~~post product images', images)
         # for image in images:
-        #     print('💃~💃~💃~~~~~~~~ image', image)
         #     new_image = ProductImages(
         #         product_id = product['id'],
         #         image_url = image
@@ -106,7 +97,6 @@ def create_product():
         #     db.session.commit()
             
         #     image_dict = new_image.to_dict()
-        #     print('🍎😈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~> HITING img dict', image_dict)
         #     product["productImages"].append(image_dict)
 
     if form.errors:
@@ -127,7 +117,6 @@ def edit_product(id):
     if current_user.id != product.user_id:
         return {'errors': "unauthorized"}, 401
     
-    print('☠️~☠️~☠️~☠️~☠️~☠️~~~~~ edit product route product', product)    
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -182,10 +171,8 @@ def create_review(id):
     """
 
     request_body = request.data  # Access the raw request body
-    print('🌿~~🌿~~🌿~~🌿~~~ req body', request_body, id)
    
     form = ReviewForm()
-    print('👿👿👿👿👿👿👿~~~~~~~~ form data', form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
@@ -196,8 +183,6 @@ def create_review(id):
             stars = form.data['stars']
         )
 
-        print('👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿new review', new_review)
-
         db.session.add(new_review)
         db.session.commit()
 
@@ -205,5 +190,4 @@ def create_review(id):
         return review
     
     if form.errors:
-        print('👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿👿form errors', form.errors)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
