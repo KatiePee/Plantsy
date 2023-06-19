@@ -8,6 +8,8 @@ import DeleteProductModal from "./DeleteProductModal"
 import { productReviewsThunk } from "../../store/reviews"
 import ReviewCard from "../Reviews/ReviewCard"
 import CreateReviewModal from "../Reviews/CreateReviewModal"
+import LoginFormModal from "../LoginFormModal"
+
 import './Products.css'
 
 const ProductDetail = () => {
@@ -18,7 +20,7 @@ const ProductDetail = () => {
   const reviewsState = useSelector(state => state.reviews.product)
   const user = useSelector(state => state.session.user)
   const reviews = reviewsState ? Object.values(reviewsState) : [];
-  console.log('😈~~~~~~~~~~~~~~>', reviews)
+
   useEffect(() => {
     async function fetchData() {
       await dispatch(singleProductsThunk(productId))
@@ -29,9 +31,12 @@ const ProductDetail = () => {
   }, [dispatch])
 
   if (isLoading) return <div>Loading...</div>;
-  const isOwner = product.id === user.id
-  const hasLeftReview = reviews.some(review => review.userId === user.id)
+
+  const isOwner = user ? product.id === user.id : false;
+  const hasLeftReview = user ? reviews.some(review => review.userId === user.id) : false;
+
   console.log('🤑~🤑~🤑~🤑~🤑~🤑~🤑~ has left review~~', hasLeftReview)
+
   const { id, title, description, price, userId, productImages, createdAt, numReviews, avgRating } = product
 
   //TODO: set up preview image
@@ -85,7 +90,7 @@ const ProductDetail = () => {
           {!isOwner && !hasLeftReview && (
             <OpenModalButton
               buttonText="Post Your Review"
-              modalComponent={<CreateReviewModal props={{ product, user }} />}
+              modalComponent={user ? <CreateReviewModal props={{ product, user }} /> : <LoginFormModal />}
             />
           )}
 
@@ -99,16 +104,20 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
-      <OpenModalButton
-        buttonText="Edit product"
-        // onItemClick={closeMenu}
-        modalComponent={<EditProductModal product={product} />}
-      />
-      <OpenModalButton
-        buttonText="Delete product"
-        // onItemClick={closeMenu}
-        modalComponent={<DeleteProductModal product={product} />}
-      />
+      {isOwner && (
+        <div>
+          <OpenModalButton
+            buttonText="Edit product"
+            // onItemClick={closeMenu}
+            modalComponent={<EditProductModal product={product} />}
+          />
+          <OpenModalButton
+            buttonText="Delete product"
+            // onItemClick={closeMenu}
+            modalComponent={<DeleteProductModal product={product} />}
+          />
+        </div>
+      )}
     </>
   )
 }

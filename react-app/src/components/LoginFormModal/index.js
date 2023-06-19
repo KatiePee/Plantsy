@@ -3,53 +3,76 @@ import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { disable } from "express/lib/application";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+  const formErrors = {}
+
+  const _handleErrors = () => {
+    email || (formErrors.email = 'email is required');
+    password || (formErrors.password = 'password is required')
+    setErrors(formErrors)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(data);
-    } else {
+    _handleErrors();
+
+    if (!Object.values(formErrors).length) {
+      const data = await dispatch(login(email, password));
+
+      if (data) {
+        formErrors.validations = 'invalid credentials'
+        setErrors({ ...formErrors });
+        return
+      } else {
         closeModal()
+      }
     }
   };
 
+  const demoUser = async (e) => {
+    e.preventDefault();
+    await dispatch(login("demo@aa.io", "password"));
+    closeModal()
+  }
+
   return (
     <>
-      <h1>Log In</h1>
+      <h1>Log In test!!</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
+        <p className="errors">
+          <p className='errors form__errors'>{errors.validations}</p>
+        </p>
         <label>
           Email
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+
           />
         </label>
+        <p className='errors form__errors'>{errors.email}</p>
         <label>
           Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+
           />
         </label>
-        <button type="submit">Log In</button>
+        <p className='errors form__errors'>{errors.password}</p>
+        <button type="submit" onClick={handleSubmit} >Log In</button>
       </form>
+      <button onClick={demoUser}>Demo User</button>
     </>
   );
 }

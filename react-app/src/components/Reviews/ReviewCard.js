@@ -11,14 +11,14 @@ const ReviewCard = ({ review }) => {
     <div className="product-detail__reviews">
       <p className="review__stars"> {review.review} </p>
       <p className="review__review"> {review.stars} stars </p>
-      {user.id == review.userId && (
+      {user && user.id == review.userId && (
         <OpenModalButton
           buttonText="delete"
           // onItemClick={closeMenu}
           modalComponent={<DeleteReviewModal review={review} />}
         />
       )}
-      {user.id == review.userId && (
+      {user && user.id == review.userId && (
         <OpenModalButton
           buttonText="Edit Review"
           // onItemClick={closeMenu}
