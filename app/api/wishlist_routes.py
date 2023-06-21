@@ -4,6 +4,20 @@ from app.models import db, Product, User, wishlist
 
 wishlist_routes = Blueprint('wishlist', __name__)
 
+@wishlist_routes.route('/')
+@login_required
+def my_wishlist():
+    """
+    Query for the wishlist of the current user
+    """
+
+    user = User.query.get(current_user.id)
+    wishlists = user.wishlist
+    wish_list = [wishlist.to_dict() for wishlist in wishlists]
+    return wish_list
+    
+
+
 @wishlist_routes.route('/product/<int:id>', methods=['POST'])
 @login_required
 def add_to_wishlist(id):
@@ -19,7 +33,7 @@ def add_to_wishlist(id):
 
     return {"message": "Successfully added to wishlist"}
 
-@wishlist_routes.route('/products/<int:id>/remove', methods=['POST'])
+@wishlist_routes.route('/products/<int:id>/remove', methods=['DELETE'])
 @login_required
 def remove_from_wishlist(id):
     """

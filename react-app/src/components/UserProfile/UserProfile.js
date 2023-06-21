@@ -1,21 +1,37 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import ProductCard from '../Products/ProductCard';
 import EditProductModal from '../Products/EditProductModal';
 import DeleteProductModal from '../Products/DeleteProductModal';
 import OpenModalButton from '../OpenModalButton';
+import { myWishlistThunk } from '../../store/wishlist';
 import './UserProfile.css'
 
 export default function UserProfile() {
   const history = useHistory()
+  const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
+  const wishlist = useSelector(state => state.wishlist)
   const [nav, setNav] = useState('products')
+  const [isLoading, setIsLoading] = useState(true);
+
+
+
+  useEffect(() => {
+    async function fetchData() {
+      await dispatch(myWishlistThunk())
+      setIsLoading(false)
+    }
+    fetchData()
+  }, [dispatch])
 
   if (!user) {
     return <Redirect to='/' />
   }
+
+  if (isLoading) return <div>Loading...</div>;
 
   const products = user.Products
 
