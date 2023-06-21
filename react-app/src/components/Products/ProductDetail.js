@@ -48,44 +48,50 @@ const ProductDetail = () => {
     <>
       <div className="product-detail__wrapper">
 
-        <div className="product-detail__main">
+        {/* <div className="product-detail__main"> */}
 
-          <div className="product-detail__images">
+        <div className="product-detail__images">
 
-            <div className="prodct-detail__side-images">
-              {arr.map(img => (
-                <img className="product-detail__image-side" src={image.imageUrl} />
-              ))}
-            </div >
-            <div className="product-detail__preview">
+          <div className="prodct-detail__side-images">
+            {arr.map(img => (
+              <img className="product-detail__image-side" src={image.imageUrl} />
+            ))}
+          </div >
 
-              <div className="product-detail__left-arrow icons">
-                <i class="fa-solid fa-arrow-left"></i>
-              </div>
 
-              <img className="product-detail__preview-image" src={image.imageUrl} />
 
-              <div className="product-detail__left-arrow icons">
-                <i class="fa-solid fa-arrow-right"></i>
-              </div>
+          <div className="product-detail__preview">
 
-              <div className='product-detail__wishlist icons'>
-                {/* <i class="fa-solid fa-heart"></i> */}
-                <i class="fa-regular fa-heart"></i>
-              </div>
+            <div className="product-detail__left-arrow icons">
+              <i class="fa-solid fa-arrow-left"></i>
             </div>
 
-          </div>
+            <img className="product-detail__preview-image" src={image.imageUrl} />
 
-          <div className="product-detail__info">
-            <h2 className="product-detail__price">$ {price}</h2>
-            <p className="product-detail__title">{title}</p>
-            <h3 className="product-detail__desc-header">Description:</h3>
-            <p className="product-detail__description">{description}</p>
-            <button className="product-detail__cart">Add to cart</button>
+            <div className="product-detail__left-arrow icons">
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div className='product-detail__wishlist icons'>
+              {/* <i class="fa-solid fa-heart"></i> */}
+              <i class="fa-regular fa-heart"></i>
+            </div>
           </div>
 
         </div>
+
+
+
+
+        <div className="product-detail__info">
+          <h2 className="product-detail__price">$ {price}</h2>
+          <p className="product-detail__title">{title}</p>
+          <h3 className="product-detail__desc-header">Description:</h3>
+          <p className="product-detail__description">{description}</p>
+          <button className="product-detail__cart">Add to cart</button>
+        </div>
+
+
 
         <div className="product-detail__reviews-wrapper">
           {!isOwner && !hasLeftReview && (
@@ -119,6 +125,7 @@ const ProductDetail = () => {
             ))}
           </div>
         </div>
+        {/* </div> */}
       </div>
       {isOwner && (
         <div>
@@ -136,6 +143,14 @@ const ProductDetail = () => {
       )}
     </>
   )
+
+  // return (
+  //   <div className="product-detail__wrapper">
+  //     <div className="product-detail__images"></div>
+  //     <div className="product-detail__info"></div>
+  //     <div className="product-detail__reviews-wrapper"></div>
+  //   </div>
+  // )
 }
 
 export default ProductDetail

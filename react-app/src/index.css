@@ -12,12 +12,13 @@
 
 :root {
   --logo-font: 'Dancing Script', cursive;
-  --picture-color: #FEE3D8
+  --picture-color: #FEE3D8;
+  --regular-font: 14px;
 }
 
-body {
+/* body {
   background-color: #FDEBD2;
-}
+} */
 
 li {
   list-style: none;

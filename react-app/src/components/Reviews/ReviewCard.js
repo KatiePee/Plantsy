@@ -11,6 +11,7 @@ const ReviewCard = ({ review }) => {
 
   return (
     <div className="product-detail__reviews">
+      <p>{review.user.firstName}</p><span>{review.createdAt}</span>
       <p className="review__stars"> {review.review} </p>
       <div className="review__stars">
         <StarRatings

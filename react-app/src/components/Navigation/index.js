@@ -12,8 +12,8 @@ function Navigation({ isLoaded }) {
 			<NavLink className='nav-logo' exact to="/">🌿Plantsy</NavLink>
 			{isLoaded && (
 				<div className='nav-bar-buttons'>
-					<i class="fa-solid fa-cart-shopping"></i>
 					<ProfileButton user={sessionUser} />
+					<i class="fa-solid fa-cart-shopping"></i>
 				</div>
 			)}
 		</div>

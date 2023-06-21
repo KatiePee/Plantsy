@@ -38,7 +38,7 @@ const LandingPage = () => {
       <div className='landing-page__image-wrapper'>
         {/* <img src='https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fit,w_730,h_411/at%2Fart%2Fdesign%2F2021-02%2FGreendigs-plants%2Fzoom%20backgrounds%2Fzoombackground-2' /> */}
         {/* <img className='landing-page__image' src='https://cdn.discordapp.com/attachments/1106274559671418943/1119406195577458698/87767e8ef4bb3d828cc1382a8cd9485b.png' /> */}
-        <h1>Welcome, {user.firstName}</h1>
+        <h1>Welcome, {user ? user.firstName : 'to Plantsy'}</h1>
         <button className='landing-page__shop-button' onClick={handleScroll}>Shop Now</button>
       </div>
       <div ref={scroll} className='landing-page__products'>
