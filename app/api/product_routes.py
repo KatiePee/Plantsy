@@ -161,7 +161,13 @@ def reviews(id):
     Query for all review for a product by product id
     """
     reviews = Review.query.filter_by(product_id = id).all()
-    return {'reviews': [review.to_dict() for review in reviews]}
+    review_list = []
+    for review in reviews:
+        review_dic = review.to_dict()
+        review_dic["user"] = review.user.to_dict()
+        review_list.append(review_dic)
+    # return {'reviews': [review.to_dict() for review in reviews]}
+    return {'reviews': review_list}
     
 @product_routes.route('/<int:id>/review/new', methods=['POST'])
 @login_required
@@ -186,8 +192,9 @@ def create_review(id):
         db.session.add(new_review)
         db.session.commit()
 
-        review = new_review.to_dict()
-        return review
+        review_dic = new_review.to_dict()
+        review_dic["user"] = new_review.user.to_dict()
+        return review_dic
     
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
