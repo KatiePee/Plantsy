@@ -24,7 +24,26 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        user_dic = current_user.to_dict()
+        products = current_user.products
+        products_list = []
+        for product in products:
+            product_dic = product.to_dict()
+            product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+       
+            product_dic['numReviews'] = len(product.reviews)
+            if product.reviews:
+                avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
+                product_dic['avgRating'] = round(avg_rating, 2)
+            else:
+                product_dic['avgRating'] = 0
+        
+            products_list.append(product_dic)
+
+        user_dic['Products'] = products_list
+        print('🤡~~🤡~~🤡~~🤡~~~~~~~current user~', user_dic)
+        return user_dic
+        
     return {'errors': ['Unauthorized']}
 
 
@@ -44,7 +63,28 @@ def login():
         user1 = User.query.get(current_user.id)
         users = User.query.all()
         test = {'users': [user.to_dict() for user in users]}
-        return user.to_dict()
+
+        user_dic = user.to_dict()
+        products = user.products
+        products_list = []
+        for product in products:
+            product_dic = product.to_dict()
+            product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+       
+            product_dic['numReviews'] = len(product.reviews)
+            if product.reviews:
+                avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
+                product_dic['avgRating'] = round(avg_rating, 2)
+            else:
+                product_dic['avgRating'] = 0
+        
+            products_list.append(product_dic)
+
+        user_dic['Products'] = products_list
+        print('🤡~~🤡~~🤡~~🤡~~~~~~~current user~', user_dic)
+        return user_dic
+
+        # return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

@@ -1,12 +1,13 @@
 .product-card__wrapper {
   position: relative;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0);
 }
 
 .product-card__wishlist {
   position: absolute;
   top: .5rem;
   right: .5rem;
-  background-color: red;
+  background-color: white;
   padding: .3rem;
   border-radius: 50%;
   width: 30px;
@@ -14,6 +15,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0);
 }
 
 .product-card__price {
@@ -26,6 +28,7 @@
   padding: 6px 9px;
   border-radius: 15px;
   font-size: 13px;
+
 }
 
 .product-card__wrapper:hover {
@@ -42,11 +45,14 @@
   padding-left: 5rem;
   padding-right: 5rem;
   border: 2px solid purple;
+  /* max-width: 1150px;
+  margin: 0 auto; */
 }
 
 .product-detail__main {
   border: 2px solid purple;
   display: flex;
+
 }
 
 .product-detail__side-images {

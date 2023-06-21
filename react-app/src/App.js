@@ -9,6 +9,7 @@ import LandingPage from "./components/LandingPage";
 import ProductDetail from "./components/Products/ProductDetail";
 import CreateProduct from "./components/Products/CreateProduct";
 import EditProductModal from "./components/Products/EditProductModal";
+import UserProfile from "./components/UserProfile/UserProfile";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path='/products/:productId'>
             <ProductDetail />
+          </Route>
+          <Route path='/users'>
+            <UserProfile />
           </Route>
         </Switch>
       )}

@@ -8,14 +8,14 @@
 
 .nav-bar {
   /* border: 2px red solid; */
-  /* background-color: #FDEBD2; */
-  background-color: #FEE3D8;
+  background-color: #FDEBD2;
+  /* background-color: #FEE3D8; */
   display: flex;
   justify-content: space-between;
   padding-left: 5rem;
-  padding-right: 5rem;
-  padding-top: 2rem;
-  padding-bottom: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
   align-items: center;
 }
 
@@ -30,5 +30,30 @@
 
 .nav-plantsy {
   border-bottom: 1px solid #339E00;
+
+}
+
+.nav-bar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* align-self: flex-end; */
+}
+
+.user-nav-button {
+  /* border: 1px solid red; */
+  padding: 3px;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-nav-button:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0);
+
 
 }
