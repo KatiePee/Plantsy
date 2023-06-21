@@ -94,12 +94,6 @@ const ProductDetail = () => {
 
 
         <div className="product-detail__reviews-wrapper">
-          {!isOwner && !hasLeftReview && (
-            <OpenModalButton
-              buttonText="Post Your Review"
-              modalComponent={user ? <CreateReviewModal props={{ product, user }} /> : <LoginFormModal />}
-            />
-          )}
 
           <h3>Reviews </h3>
           <div className='product-detail__avg-rating'>
@@ -118,7 +112,14 @@ const ProductDetail = () => {
               starDimension='15px'
               name="rating"
             /> <span className='product-detail__num-reviews'> ({numReviews})</span>
+            {!isOwner && !hasLeftReview && (
+              <OpenModalButton
+                buttonText="Post Your Review"
+                modalComponent={user ? <CreateReviewModal props={{ product, user }} /> : <LoginFormModal />}
+              />
+            )}
           </div>
+
           <div className="product-detail__reviews">
             {reviews.map(review => (
               <ReviewCard review={review} key={review.id} />

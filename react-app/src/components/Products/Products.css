@@ -42,10 +42,12 @@
 }
 
 .product-detail__wrapper {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   padding-left: 5rem;
   padding-right: 5rem;
+  margin-top: 2rem;
   display: grid;
+  row-gap: 3rem;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
     'a a b'
@@ -60,7 +62,7 @@ div .product-detail__main {
 
 div .product-detail__images {
   grid-area: a;
-  border: 2px solid orange;
+  /* border: 2px solid orange; */
   display: flex;
   justify-content: center;
   gap: 1rem
@@ -68,13 +70,13 @@ div .product-detail__images {
 
 div .product-detail__info {
   grid-area: b;
-  border: 2px solid brown;
+  /* border: 2px solid brown; */
 
 }
 
 div .product-detail__reviews-wrapper {
   grid-area: c;
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
 }
 
 .prodct-detail__side-images {
@@ -84,33 +86,44 @@ div .product-detail__reviews-wrapper {
 }
 
 .product-detail__image-side {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 5px;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 10px;
+}
+
+.product-detail__image-side:hover {
+  box-shadow: 0px 0px 10px rgb(147, 146, 146);
 }
 
 .product-detail__preview {
   display: flex;
   align-items: center;
   position: relative;
-  border: 3px solid darkorchid;
+  /* border: 3px solid darkorchid; */
   flex: 1;
   justify-self: center;
-  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+  /* width: 100%; */
 
 }
 
 .product-detail__preview-image {
-  border: 1px solid green;
+  /* border: 1px solid green; */
   width: 35rem;
   height: 35rem;
+  border-radius: 10px;
+}
+
+.product-detail__preview-image:hover {
+  box-shadow: 0px 0px 10px rgb(147, 146, 146);
 }
 
 .product-detail__wishlist {
   align-self: flex-start;
-  position: absolute;
+  position: relative;
   top: .5rem;
-  right: 0;
+  right: 1rem;
 }
 
 .icons {
@@ -131,22 +144,22 @@ div .product-detail__reviews-wrapper {
   box-shadow: 0px 0px 10px rgb(75, 75, 75);
   background-color: rgb(255, 255, 255);
   border: none;
+  cursor: pointer;
 }
 
 .product-detail__info {
   display: flex;
   flex-direction: column;
-  border: 2px solid orange;
+  /* border: 2px solid orange; */
   gap: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
 .product-detail__cart {
-
   width: 100%;
 }
 
 .product-detail__reviews-wrapper {
-  border: 2px solid lawngreen;
+  /* border: 2px solid lawngreen; */
 }
