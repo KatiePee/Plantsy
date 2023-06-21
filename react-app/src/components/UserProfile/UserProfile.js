@@ -17,7 +17,6 @@ export default function UserProfile() {
   const [nav, setNav] = useState('products')
   const [isLoading, setIsLoading] = useState(true);
   const wishlist = wishlistState ? Object.values(wishlistState) : [];
-  console.log('💩~~💩~~💩~~💩~~💩~~~~~~~~~~~wishlist ', wishlist)
 
   useEffect(() => {
     async function fetchData() {

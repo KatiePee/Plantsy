@@ -35,7 +35,7 @@ def my_wishlist():
     
 
 
-@wishlist_routes.route('/product/<int:id>', methods=['POST'])
+@wishlist_routes.route('/products/<int:id>', methods=['POST'])
 @login_required
 def add_to_wishlist(id):
     """

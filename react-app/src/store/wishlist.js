@@ -28,7 +28,7 @@ export const myWishlistThunk = () => async dispatch => {
 }
 
 export const addToWishlistThunk = (product) => async dispatch => {
-  const res = await fetch(`/api/wishlist/product/${product.id}`, {
+  const res = await fetch(`/api/wishlist/products/${product.id}`, {
     method: 'POST',
   })
   if (res.ok) {
@@ -42,7 +42,7 @@ export const addToWishlistThunk = (product) => async dispatch => {
 }
 
 export const removeFromWishlistThunk = (product) => async dispatch => {
-  const res = await fetch(`/api/wishlist/product/${product.id}`, {
+  const res = await fetch(`/api/wishlist/products/${product.id}/remove`, {
     method: 'DELETE',
   })
   if (res.ok) {
