@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteReviewThunk } from "../../store/reviews";
+import { singleProductsThunk } from "../../store/products";
 
 
 const DeleteReviewModal = ({ review }) => {
@@ -11,6 +12,7 @@ const DeleteReviewModal = ({ review }) => {
   const handleDelete = (e) => {
     e.preventDefault();
     return dispatch(deleteReviewThunk(review.id))
+      .then(() => dispatch(singleProductsThunk(review.productId)))
       .then(closeModal)
   }
   return (

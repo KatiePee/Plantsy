@@ -37,12 +37,14 @@ def edit_review(id):
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-     review.review = form.data['review']
-     review.stars = form.data['stars']
+    review.review = form.data['review']
+    review.stars = form.data['stars']
 
-     db.session.commit()
+    db.session.commit()
      
-     return review.to_dict()
+    review_dic = review.to_dict()
+    review_dic["user"] = review.user.to_dict()
+    return review_dic
   
   if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
