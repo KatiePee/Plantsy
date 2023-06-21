@@ -13,11 +13,11 @@ export default function UserProfile() {
   const history = useHistory()
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
-  const wishlist = useSelector(state => state.wishlist)
+  const wishlistState = useSelector(state => state.wishlist)
   const [nav, setNav] = useState('products')
   const [isLoading, setIsLoading] = useState(true);
-
-
+  const wishlist = wishlistState ? Object.values(wishlistState) : [];
+  console.log('💩~~💩~~💩~~💩~~💩~~~~~~~~~~~wishlist ', wishlist)
 
   useEffect(() => {
     async function fetchData() {
@@ -43,8 +43,8 @@ export default function UserProfile() {
         <div>Welcome, {user.firstName}</div>
         <nav className='user-profile__nav-bar'>
           <h3 className={`user-profile__nav-buttons ${nav === 'products' && 'active'}`} onClick={() => setNav('products')}>My Products</h3>
-          <h3 className={`user-profile__nav-buttons ${nav === 'orders' && 'active'}`} onClick={() => setNav('orders')}>My Orders</h3>
           <h3 className={`user-profile__nav-buttons ${nav === 'wishlist' && 'active'}`} onClick={() => setNav('wishlist')}>My Wishlist</h3>
+          <h3 className={`user-profile__nav-buttons ${nav === 'orders' && 'active'}`} onClick={() => setNav('orders')}>My Orders</h3>
         </nav>
       </div>
 
@@ -68,9 +68,12 @@ export default function UserProfile() {
             </div>
 
           ))
-        )
-        }
-
+        )}
+        {nav === 'wishlist' && (
+          wishlist.map(product => (
+            <ProductCard product={product} key={product.id} />
+          ))
+        )}
       </div>
 
 
