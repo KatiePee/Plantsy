@@ -12,6 +12,8 @@ import ReviewCard from "../Reviews/ReviewCard"
 import CreateReviewModal from "../Reviews/CreateReviewModal"
 import LoginFormModal from "../LoginFormModal"
 import StarRatings from 'react-star-ratings';
+import { useModal } from '../../context/Modal';
+
 
 import './Products.css'
 
@@ -25,6 +27,7 @@ const ProductDetail = () => {
   const user = useSelector(state => state.session.user)
   const wishlist = useSelector(state => state.wishlist)
   const reviews = reviewsState ? Object.values(reviewsState) : [];
+  const { setModalContent, setOnModalClose } = useModal();
 
   useEffect(() => {
     async function fetchData() {
@@ -40,19 +43,17 @@ const ProductDetail = () => {
   const isOwner = user ? product.id === user.id : false;
   const hasLeftReview = user ? reviews.some(review => review.userId === user.id) : false;
 
-  console.log('🤑~🤑~🤑~🤑~🤑~🤑~🤑~ has left review~~', hasLeftReview)
-
   const { id, title, description, price, userId, productImages, createdAt, numReviews, avgRating } = product
 
   //TODO: set up preview image
   const image = productImages[0]
-  console.log('🎃~~~~~~~~images', productImages)
   const arr = [1, 2, 3, 4, 5]
-
-
 
   const inWishlist = product.id in wishlist
   const handleWishlist = async (e) => {
+    if (!user) {
+      setModalContent(<LoginFormModal />);
+    }
     const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
   }
 
@@ -65,10 +66,7 @@ const ProductDetail = () => {
   }
   const handleUp = () => {
     index === productImages.length - 1 ? setIndex(0) : setIndex(index + 1)
-
   }
-
-  console.log('🎃~~~~~~~~~~~ index, length: ', index, productImages.length)
 
   return (
     <>
