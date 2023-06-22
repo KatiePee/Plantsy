@@ -18,8 +18,8 @@ export default function CreateProduct() {
   let formErrors = {}
 
   const _handleErrors = () => {
-    // title || (formErrors.title = 'Title is required.');
-    // title.length < 225 || (formErrors.title = 'Title must be less than 50 character.');
+    title || (formErrors.title = 'Title is required.');
+    title.length < 225 || (formErrors.title = 'Title must be less than 50 character.');
     description || (formErrors.description = 'Description is required.');
     description.length < 2040 || (formErrors.description = 'Description must be less than 2040 character.');
     price || (formErrors.price = 'Price is required.');

@@ -16,12 +16,12 @@ const EditProductModal = ({ product }) => {
   const [price, setPrice] = useState(product?.price)
 
   const user = useSelector(state => state.session.user)
-
+  console.log('🍎~~~~~~~~~~~~~~~~~edit product', product)
   let formErrors = {}
 
   const _handleErrors = () => {
     title || (formErrors.title = 'Title is required.');
-    title.length < 50 || (formErrors.title = 'Title must be less than 50 character.');
+    title.length < 255 || (formErrors.title = 'Title must be less than 50 character.');
     description || (formErrors.description = 'Description is required.');
     description.length < 2040 || (formErrors.description = 'Description must be less than 2040 character.');
     price || (formErrors.price = 'Price is required.');
@@ -32,13 +32,14 @@ const EditProductModal = ({ product }) => {
   }
 
   const handleSubmit = async (e) => {
+    console.log('🎃~~~~~~~~~~~~~~ submit button stuff', { title, description, price })
     e.preventDefault();
     _handleErrors();
 
 
     // const images = []
     // images.push(image)
-
+    console.log('🌿~~~~~~~~~~~~~ form errors', formErrors)
     if (!Object.values(formErrors).length) {
       const productFormData = new FormData();
       productFormData.append("title", title);
@@ -73,7 +74,7 @@ const EditProductModal = ({ product }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            {/* <p className="errors form__errors">{errors.title}</p> */}
+            <p className="errors form__errors">{errors.title}</p>
           </label>
         </div>
         <div className="product-form__description">
@@ -85,7 +86,7 @@ const EditProductModal = ({ product }) => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            {/* <p className="errors form__errors">{errors.description}</p> */}
+            <p className="errors form__errors">{errors.description}</p>
           </label>
         </div>
         <div className="product-form__price">
@@ -97,7 +98,7 @@ const EditProductModal = ({ product }) => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            {/* <p className="errors form__errors">{errors.price}</p> */}
+            <p className="errors form__errors">{errors.price}</p>
           </label>
         </div>
         {/* <div className="product-form__image">
