@@ -29,7 +29,6 @@
   padding: 6px 9px;
   border-radius: 15px;
   font-size: 13px;
-
 }
 
 .product-card__wrapper:hover {
@@ -72,7 +71,16 @@ div .product-detail__images {
 div .product-detail__info {
   grid-area: b;
   /* border: 2px solid brown; */
+}
 
+.product-detail__title {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.product-detail__description {
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 div .product-detail__reviews-wrapper {
