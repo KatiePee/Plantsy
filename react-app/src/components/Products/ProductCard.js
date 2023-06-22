@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const wishlist = useSelector(state => state.wishlist)
-
+  console.log('🤡~~~~~~~~~~ history~~~~~~~~~~', history)
   const { id, title, description, price, userId, productImages, createdAt, numReviews, avgRating } = product
 
   //TODO: set up preview image
@@ -36,17 +36,18 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <div className='product-card__wrapper' onClick={handleClick} style={imageStyle}>
 
-      {/* <img src={image.imageUrl} alt={`${title} image `} className='product-card__image' /> */}
+    <div className='product-card__wrapper' >
+
+      <div className='product-card' onClick={handleClick} style={imageStyle}>
+        <span className='product-card__price'>
+          <p>$ {price}</p>
+        </span>
+      </div>
 
       <div className={`product-card__wishlist ${inWishlist ? 'filled-heart' : 'empty-heart'}`} onClick={handleWishlist}>
         {inWishlist ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
       </div>
-
-      <span className='product-card__price'>
-        <p>$ {price}</p>
-      </span>
 
     </div>
   )

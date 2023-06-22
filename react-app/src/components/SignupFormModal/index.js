@@ -19,19 +19,33 @@ function SignupFormModal() {
 	let formErrors = {}
 
 	const _handelErrors = () => {
+		const regex = /^\s+/g
+		setFirstName(firstName.replace(regex, ''))
+		setLastName(lastName.replace(regex, ''))
 
-		firstName || (formErrors.firstName = 'firstName is required.');
-		firstName.length > 1 || (formErrors.firstName = 'First name is required and must be at least 1 character.');
-		firstName.length < 30 || (formErrors.firstName = 'First name is required and must be less than 30 characters.');
-		lastName || (formErrors.lastName = 'lastName is required.');
-		lastName.length > 1 || (formErrors.lastName = 'Last name is required and must be at least 1 character.');
-		lastName.length < 30 || (formErrors.lastName = 'Last name is required and must be less than 30 characters.');
+		regex.test(firstName) && (formErrors.firstName = 'first name is required.');
+		regex.test(lastName) && (formErrors.lastName = 'last name is required.');
+		firstName || (formErrors.firstName = 'first name is required.');
+		firstName.length > 0 || (formErrors.firstName = 'First name must be at least 1 character.');
+		firstName.length < 30 || (formErrors.firstName = 'First name must be less than 30 characters.');
+		lastName || (formErrors.lastName = 'last name is required.');
+		lastName.length > 0 || (formErrors.lastName = 'Last name must be at least 1 character.');
+		lastName.length < 30 || (formErrors.lastName = 'Last name must be less than 30 characters.');
 		email || (formErrors.email = 'email is required.');
 		email.length < 30 || (formErrors.email = 'email is required and must be less than 50 characters.');
 		password || (formErrors.password = 'password is required.');
 		password.length < 225 || (formErrors.password = 'password is too long');
 		confirmPassword || (formErrors.confirmPassword = 'confirmPassword is required.');
 		password === confirmPassword || (formErrors.confirmPassword = 'passwords do not match');
+
+		const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		const isValidEmail = validEmail.test(email);
+		isValidEmail || (formErrors.email = 'please enter a valid email')
+
+
+
+
+
 		setErrors(formErrors)
 	}
 
