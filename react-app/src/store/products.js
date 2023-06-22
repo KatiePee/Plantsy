@@ -1,4 +1,5 @@
 const ALL_PRODUCTS = 'products/allProduct'
+const USER_PRODUCTS = 'products/currentProducts'
 const SINGLE_PRODUCT = 'products/singleProduct'
 const CREATE_PRODUCT = 'products/createProduct'
 const EDIT_PRODUCT = 'products/editProduct'
@@ -6,6 +7,11 @@ const DELETE_PRODUCT = 'products/deleteProduct'
 
 const allProducts = (products) => ({
   type: ALL_PRODUCTS,
+  payload: products
+})
+
+const userProducts = (products) => ({
+  type: USER_PRODUCTS,
   payload: products
 })
 
@@ -34,6 +40,15 @@ export const allProductsThunk = () => async dispatch => {
   if (res.ok) {
     const products = await res.json()
     await dispatch(allProducts(products.products))
+    return products
+  } else return null
+}
+
+export const currentProductsThunk = () => async dispatch => {
+  const res = await fetch('/api/products/current');
+  if (res.ok) {
+    const products = await res.json()
+    await dispatch(userProducts(products.products))
     return products
   } else return null
 }
@@ -67,7 +82,7 @@ export const createProductThunk = (product) => async dispatch => {
 }
 
 export const editProductThunk = (product, id) => async dispatch => {
-  console.log('👺~👺~👺~👺~~~~~~~~~~id~~~~~~~>', id)
+  console.log('👺~👺~👺~👺~~~~~~~~~~edited product~~~~~~~>', product)
   const res = await fetch(`/api/products/${id}/edit`, {
     method: 'PUT',
     body: product
@@ -101,7 +116,7 @@ export const deleteProductThunk = (id) => async dispatch => {
 
 
 
-const initialState = { allProducts: {}, singleProduct: {} }
+const initialState = { allProducts: {}, singleProduct: {}, userProducts: {} }
 export default function productsReducer(state = initialState, action) {
   let newState
   switch (action.type) {
@@ -109,21 +124,28 @@ export default function productsReducer(state = initialState, action) {
       newState = { ...state, allProducts: {} };
       action.payload.forEach(el => newState.allProducts[el.id] = el)
       return newState;
+    case USER_PRODUCTS:
+      newState = { ...state, userProducts: {} };
+      action.payload.forEach(el => newState.userProducts[el.id] = el)
+      return newState;
     case SINGLE_PRODUCT:
       newState = { ...state, singleProduct: { ...action.payload } }
       return newState
     case CREATE_PRODUCT:
-      newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload } }
+      newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload }, userProducts: { ...action.payload } }
       newState.allProducts[action.payload.id] = action.payload
+      newState.userProducts[action.payload.id] = action.payload
       return newState
     case EDIT_PRODUCT:
-      newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload } }
+      newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload }, userProducts: { ...state.userProducts } }
       newState.allProducts[action.payload.id] = action.payload
+      newState.userProducts[action.payload.id] = action.payload
       return newState
     case DELETE_PRODUCT:
-      newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...action.payload } }
+      newState = { ...state, allProducts: { ...state.allProducts }, userProducts: { ...state.userProducts } }
+      console.log('👿~~~~~~~~~~~~~~~~delete action payload', action.payload)
       delete newState.allProducts[action.payload];
-      delete newState.singleProduct[action.payload];
+      delete newState.userProducts[action.payload];
       return newState
     default:
       return state

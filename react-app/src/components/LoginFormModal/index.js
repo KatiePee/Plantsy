@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { myWishlistThunk } from "../../store/wishlist";
 import { disable } from "express/lib/application";
 
 function LoginFormModal() {
@@ -25,7 +26,7 @@ function LoginFormModal() {
     _handleErrors();
 
     if (!Object.values(formErrors).length) {
-      const data = await dispatch(login(email, password));
+      const data = await dispatch(login(email, password))
 
       if (data) {
         formErrors.validations = 'invalid credentials'
@@ -33,6 +34,7 @@ function LoginFormModal() {
         return
       } else {
         closeModal()
+
       }
     }
   };

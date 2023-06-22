@@ -17,8 +17,8 @@ const DeleteProductModal = ({ product }) => {
     <div>
       <h1>Confirm Delete</h1>
       <p>Are you sure you want to remove this spot from your listings?</p>
-      <button onClick={handleDelete}>Yes, delete spot</button>
-      <button onClick={closeModal}>No, keep spot</button>
+      <button onClick={handleDelete}>Yes, delete product</button>
+      <button onClick={closeModal}>No, keep product</button>
     </div>
   );
 }
