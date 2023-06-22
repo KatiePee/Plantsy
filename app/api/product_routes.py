@@ -29,7 +29,33 @@ def products():
         products_list.append(product_dic)
 
     return { 'products': products_list }
-    
+
+@product_routes.route('/current')
+def current_user_products():
+    """
+    Query for all products and returns them in a list of product dictionaries
+    """
+    user = User.query.get(current_user.id)
+    products = user.products
+    products_list = []
+    for product in products:
+        product_dic = product.to_dict()
+        product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+        product_dic['seller'] = product.user.to_dict()
+        del product_dic['seller']['id']
+        product_dic['numReviews'] = len(product.reviews)
+        if product.reviews:
+            avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
+            product_dic['avgRating'] = round(avg_rating, 2)
+        else:
+            product_dic['avgRating'] = 0
+        
+        
+        products_list.append(product_dic)
+
+    return { 'products': products_list }
+
+
 @product_routes.route('/<int:id>')
 def single_product(id):
     """
@@ -87,22 +113,10 @@ def create_product():
 
         db.session.add(new_image)
         db.session.commit()
-        # for image in images:
-        #     new_image = ProductImages(
-        #         product_id = product['id'],
-        #         image_url = image
-        #     )
-
-        #     db.session.add(new_image)
-        #     db.session.commit()
-            
-        #     image_dict = new_image.to_dict()
-        #     product["productImages"].append(image_dict)
 
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-        # return form.errors
-    #  {'errors': validation_errors_to_error_messages(form.errors)}, 401
+     
     
     return product
 

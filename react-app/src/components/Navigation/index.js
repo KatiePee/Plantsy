@@ -13,7 +13,9 @@ function Navigation({ isLoaded }) {
 			{isLoaded && (
 				<div className='nav-bar-buttons'>
 					<ProfileButton user={sessionUser} />
-					<i class="fa-solid fa-cart-shopping"></i>
+					<div className='nav-bar__cart' onClick={() => alert('feature coming soon')}>
+						<i class="fa-solid fa-cart-shopping"></i>
+					</div>
 				</div>
 			)}
 		</div>

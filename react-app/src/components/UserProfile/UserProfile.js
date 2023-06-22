@@ -1,23 +1,42 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import ProductCard from '../Products/ProductCard';
 import EditProductModal from '../Products/EditProductModal';
 import DeleteProductModal from '../Products/DeleteProductModal';
 import OpenModalButton from '../OpenModalButton';
+import { myWishlistThunk } from '../../store/wishlist';
+import { currentProductsThunk } from '../../store/products';
 import './UserProfile.css'
 
 export default function UserProfile() {
   const history = useHistory()
+  const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
+  const productsState = useSelector(state => state.products.userProducts)
+  const wishlistState = useSelector(state => state.wishlist)
   const [nav, setNav] = useState('products')
+  const [isLoading, setIsLoading] = useState(true);
+  const wishlist = wishlistState ? Object.values(wishlistState) : [];
+  const products = productsState ? Object.values(productsState) : [];
+
+  useEffect(() => {
+    async function fetchData() {
+      await dispatch(myWishlistThunk())
+      await dispatch(currentProductsThunk())
+      setIsLoading(false)
+    }
+    fetchData()
+  }, [dispatch])
 
   if (!user) {
     return <Redirect to='/' />
   }
 
-  const products = user.Products
+  if (isLoading) return <div>Loading...</div>;
+
+  // const products = user.Products
 
   return (
     // <h1>user profile page!</h1>
@@ -27,8 +46,8 @@ export default function UserProfile() {
         <div>Welcome, {user.firstName}</div>
         <nav className='user-profile__nav-bar'>
           <h3 className={`user-profile__nav-buttons ${nav === 'products' && 'active'}`} onClick={() => setNav('products')}>My Products</h3>
-          <h3 className={`user-profile__nav-buttons ${nav === 'orders' && 'active'}`} onClick={() => setNav('orders')}>My Orders</h3>
           <h3 className={`user-profile__nav-buttons ${nav === 'wishlist' && 'active'}`} onClick={() => setNav('wishlist')}>My Wishlist</h3>
+          <h3 className={`user-profile__nav-buttons ${nav === 'orders' && 'active'}`} onClick={() => setNav('orders')}>My Orders</h3>
         </nav>
       </div>
 
@@ -52,9 +71,12 @@ export default function UserProfile() {
             </div>
 
           ))
-        )
-        }
-
+        )}
+        {nav === 'wishlist' && (
+          wishlist.map(product => (
+            <ProductCard product={product} key={product.id} />
+          ))
+        )}
       </div>
 
 

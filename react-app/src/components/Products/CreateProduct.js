@@ -10,8 +10,8 @@ export default function CreateProduct() {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
-  const [errors, setErrors] = useState({});
-
+  const [errors, setErrors] = useState('123');
+  console.log('👤~~~~~~~~~ first error', errors)
 
 
   const dispatch = useDispatch();
@@ -19,26 +19,26 @@ export default function CreateProduct() {
 
   const _handleErrors = () => {
     title || (formErrors.title = 'Title is required.');
-    title.length < 50 || (formErrors.title = 'Title must be less than 50 character.');
+    title.length < 225 || (formErrors.title = 'Title must be less than 50 character.');
     description || (formErrors.description = 'Description is required.');
     description.length < 2040 || (formErrors.description = 'Description must be less than 2040 character.');
     price || (formErrors.price = 'Price is required.');
     price > 1 || (formErrors.price = 'Price is must be greater than $1.')
     image || (formErrors.image = 'At least one image is required.');
 
-    setErrors(formErrors)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    _handleErrors();
-    console.log('✏️~~~~~~', title, description, price, image)
-    console.log(errors)
+    await _handleErrors();
+    console.log('🎃~~~~in handle submite after err fun call ~~', errors)
     const images = []
     images.push(image)
 
-    console.log('👹~~👹~~👹~~👹~~ handle submit images', images)
-    if (!Object.values(errors).length) {
+    console.log('👹~~👹~~👹~~👹~~ form errors', formErrors)
+    console.log('👹~~👹~~👹~~👹~~ des . length', title.length)
+    console.log('👹~~👹~~👹~~👹~~ des . length', description.length)
+    if (!Object.values(formErrors).length) {
       const productFormData = new FormData();
       productFormData.append("title", title);
       productFormData.append("description", description);
@@ -47,13 +47,15 @@ export default function CreateProduct() {
 
       const data = await dispatch(createProductThunk(productFormData));
 
-      if (data) {
-        formErrors.validationErrors = data;
+      if (data.errors) {
+        formErrors.validations = data.errors;
         setErrors({ ...formErrors });
       } else {
-        history.push('/')
+        history.push('/users')
       }
     } else setErrors(formErrors)
+
+
   }
 
 
@@ -61,6 +63,7 @@ export default function CreateProduct() {
     <div className="product-form__wrapper">
       <h3>Create a new Product</h3>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
+        <p className='errors form__errors'>{errors.validations}</p>
         <div className="product-form__title">
           <label>
             <input
@@ -111,7 +114,7 @@ export default function CreateProduct() {
         </div>
         <div className="product-form-btn-wrapper">
           <button className="signup-btn" type='submit'>
-            Sign Up
+            Create Product
           </button>
         </div>
       </form>
