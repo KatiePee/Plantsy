@@ -43,15 +43,14 @@ function SignupFormModal() {
 		isValidEmail || (formErrors.email = 'please enter a valid email')
 
 
-
-
-
 		setErrors(formErrors)
+
 	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		_handelErrors()
+
 		if (!Object.values(formErrors).length) {
 			const data = await dispatch(signUp(firstName, lastName, email, password));
 			if (data) {

@@ -26,7 +26,7 @@ const EditProductModal = ({ product }) => {
     price > 1 || (formErrors.price = 'Price is must be greater than $1.')
     // image || (formErrors.image = 'At least one image is required.');
 
-    setErrors(formErrors)
+    // setErrors(formErrors)
   }
 
   const handleSubmit = async (e) => {
@@ -37,7 +37,7 @@ const EditProductModal = ({ product }) => {
     // const images = []
     // images.push(image)
 
-    if (!Object.values(errors).length) {
+    if (!Object.values(formErrors).length) {
       const productFormData = new FormData();
       productFormData.append("title", title);
       productFormData.append("description", description);
