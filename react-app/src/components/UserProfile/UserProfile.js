@@ -7,20 +7,24 @@ import EditProductModal from '../Products/EditProductModal';
 import DeleteProductModal from '../Products/DeleteProductModal';
 import OpenModalButton from '../OpenModalButton';
 import { myWishlistThunk } from '../../store/wishlist';
+import { currentProductsThunk } from '../../store/products';
 import './UserProfile.css'
 
 export default function UserProfile() {
   const history = useHistory()
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
+  const productsState = useSelector(state => state.products.userProducts)
   const wishlistState = useSelector(state => state.wishlist)
   const [nav, setNav] = useState('products')
   const [isLoading, setIsLoading] = useState(true);
   const wishlist = wishlistState ? Object.values(wishlistState) : [];
+  const products = productsState ? Object.values(productsState) : [];
 
   useEffect(() => {
     async function fetchData() {
       await dispatch(myWishlistThunk())
+      await dispatch(currentProductsThunk())
       setIsLoading(false)
     }
     fetchData()
@@ -32,7 +36,7 @@ export default function UserProfile() {
 
   if (isLoading) return <div>Loading...</div>;
 
-  const products = user.Products
+  // const products = user.Products
 
   return (
     // <h1>user profile page!</h1>

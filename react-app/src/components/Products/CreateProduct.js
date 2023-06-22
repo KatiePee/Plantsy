@@ -51,7 +51,7 @@ export default function CreateProduct() {
         formErrors.validations = data.errors;
         setErrors({ ...formErrors });
       } else {
-        history.push('/')
+        history.push('/users')
       }
     } else setErrors(formErrors)
 

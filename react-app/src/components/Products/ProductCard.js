@@ -8,7 +8,6 @@ const ProductCard = ({ product }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const wishlist = useSelector(state => state.wishlist)
-  console.log('🤡~~~~~~~~~~ history~~~~~~~~~~', history)
   const { id, title, description, price, userId, productImages, createdAt, numReviews, avgRating } = product
 
   //TODO: set up preview image

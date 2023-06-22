@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
 import { allProductsThunk } from '../../store/products'
 import { myWishlistThunk } from '../../store/wishlist';
+import { currentProductsThunk } from '../../store/products';
 import ProductCard from '../Products/ProductCard'
 
 import './LandingPage.css'
@@ -19,6 +20,7 @@ const LandingPage = () => {
     async function fetchData() {
       await dispatch(allProductsThunk())
       await dispatch(myWishlistThunk())
+      await dispatch(currentProductsThunk())
       setIsLoading(false)
     }
     fetchData()

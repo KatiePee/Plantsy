@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 import { useParams, useHistory } from "react-router-dom";
 import { editProductThunk } from "../../store/products";
+import { useModal } from '../../context/Modal'
+
 
 const EditProductModal = ({ product }) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const { closeModal } = useModal()
   const [errors, setErrors] = useState({});
   const [title, setTitle] = useState(product?.title)
   const [description, setDescription] = useState(product?.description)
@@ -46,22 +48,22 @@ const EditProductModal = ({ product }) => {
       console.log('💩~~~~~~~~~~~~~~~~~~~~~~~~~~~>', { title, description, price })
       const data = await dispatch(editProductThunk(productFormData, product.id));
 
-      if (data) {
-        formErrors.validationErrors = data;
+      if (data.errors) {
+        formErrors.validations = data.errors;
         setErrors({ ...formErrors });
       } else {
-        history.push('/')
+        // history.push('/users')
+        closeModal()
+
       }
     } else setErrors(formErrors)
   }
-  console.log('💩~~~~~~~~~~~~~~title~~~~~~~~~~~~~>', title)
 
   return (
-
     <div className="product-form__wrapper">
       <h3>Create a new Product</h3>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
-        {/* <form encType="multipart/form-data" > */}
+        <p className='errors form__errors'>{errors.validations}</p>
         <div className="product-form__title">
           <label>
             <input
@@ -112,7 +114,7 @@ const EditProductModal = ({ product }) => {
         </div> */}
         <div className="product-form-btn-wrapper">
           <button className="signup-btn" type='submit'>
-            Sign Up
+            Edit Product
           </button>
         </div>
       </form>
