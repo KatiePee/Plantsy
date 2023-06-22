@@ -6,6 +6,8 @@ import OpenModalButton from "../OpenModalButton"
 import EditProductModal from "./EditProductModal"
 import DeleteProductModal from "./DeleteProductModal"
 import { productReviewsThunk } from "../../store/reviews"
+import { addToWishlistThunk } from '../../store/wishlist'
+import { removeFromWishlistThunk } from '../../store/wishlist'
 import ReviewCard from "../Reviews/ReviewCard"
 import CreateReviewModal from "../Reviews/CreateReviewModal"
 import LoginFormModal from "../LoginFormModal"
@@ -20,6 +22,7 @@ const ProductDetail = () => {
   const product = useSelector(state => state.products.singleProduct)
   const reviewsState = useSelector(state => state.reviews.product)
   const user = useSelector(state => state.session.user)
+  const wishlist = useSelector(state => state.wishlist)
   const reviews = reviewsState ? Object.values(reviewsState) : [];
 
   useEffect(() => {
@@ -43,6 +46,11 @@ const ProductDetail = () => {
   //TODO: set up preview image
   const image = productImages[0]
   const arr = [1, 2, 3, 4, 5]
+  const inWishlist = product.id in wishlist
+
+  const handleWishlist = async (e) => {
+    const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
+  }
 
   return (
     <>
@@ -72,10 +80,12 @@ const ProductDetail = () => {
               <i class="fa-solid fa-arrow-right"></i>
             </div>
 
-            <div className='product-detail__wishlist icons'>
-              {/* <i class="fa-solid fa-heart"></i> */}
-              <i class="fa-regular fa-heart"></i>
+
+
+            <div className={`product-detail__wishlist icons ${inWishlist ? 'filled-heart' : 'empty-heart'}`} onClick={handleWishlist}>
+              {inWishlist ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
             </div>
+
           </div>
 
         </div>
@@ -128,7 +138,7 @@ const ProductDetail = () => {
         </div>
         {/* </div> */}
       </div>
-      {isOwner && (
+      {/* {isOwner && (
         <div>
           <OpenModalButton
             buttonText="Edit product"
@@ -141,7 +151,7 @@ const ProductDetail = () => {
             modalComponent={<DeleteProductModal product={product} />}
           />
         </div>
-      )}
+      )} */}
     </>
   )
 

@@ -20,7 +20,6 @@ const ProductCard = ({ product }) => {
 
   const handleWishlist = async (e) => {
     const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
-
   }
 
   const imageStyle = {
