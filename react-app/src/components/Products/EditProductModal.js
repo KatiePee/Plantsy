@@ -62,7 +62,7 @@ const EditProductModal = ({ product }) => {
 
   return (
     <div className="product-form__wrapper">
-      <h3>Create a new Product</h3>
+      <h3>Edit your product</h3>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <p className='errors form__errors'>{errors.validations}</p>
         <div className="product-form__title">
