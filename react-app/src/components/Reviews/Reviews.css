@@ -4,7 +4,7 @@
 
 .review__stars {
   overflow-wrap: break-word;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .product-detail__avg-rating {

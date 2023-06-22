@@ -18,6 +18,7 @@ import './Products.css'
 const ProductDetail = () => {
   const { productId } = useParams()
   const [isLoading, setIsLoading] = useState(true);
+  const [index, setIndex] = useState(0)
   const dispatch = useDispatch();
   const product = useSelector(state => state.products.singleProduct)
   const reviewsState = useSelector(state => state.reviews.product)
@@ -45,12 +46,29 @@ const ProductDetail = () => {
 
   //TODO: set up preview image
   const image = productImages[0]
+  console.log('🎃~~~~~~~~images', productImages)
   const arr = [1, 2, 3, 4, 5]
-  const inWishlist = product.id in wishlist
 
+
+
+  const inWishlist = product.id in wishlist
   const handleWishlist = async (e) => {
     const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
   }
+
+  const handleIndex = (i) => {
+    setIndex(i)
+  }
+
+  const handleDown = () => {
+    index === 0 ? setIndex(productImages.length - 1) : setIndex(index - 1)
+  }
+  const handleUp = () => {
+    index === productImages.length - 1 ? setIndex(0) : setIndex(index + 1)
+
+  }
+
+  console.log('🎃~~~~~~~~~~~ index, length: ', index, productImages.length)
 
   return (
     <>
@@ -61,33 +79,28 @@ const ProductDetail = () => {
         <div className="product-detail__images">
 
           <div className="prodct-detail__side-images">
-            {arr.map(img => (
-              <img className="product-detail__image-side" src={image.imageUrl} />
+            {productImages.map((img, i) => (
+              <img className="product-detail__image-side" src={img.imageUrl} onClick={() => handleIndex(i)} />
             ))}
           </div >
 
 
 
           <div className="product-detail__preview">
-
-            <div className="product-detail__left-arrow icons">
+            <div className="product-detail__left-arrow icons" onClick={handleDown}>
               <i class="fa-solid fa-arrow-left"></i>
             </div>
 
-            <img className="product-detail__preview-image" src={image.imageUrl} />
+            <img className="product-detail__preview-image" src={productImages[index].imageUrl} />
 
-            <div className="product-detail__left-arrow icons">
+            <div className="product-detail__left-arrow icons" onClick={handleUp}>
               <i class="fa-solid fa-arrow-right"></i>
             </div>
-
-
 
             <div className={`product-detail__wishlist icons ${inWishlist ? 'filled-heart' : 'empty-heart'}`} onClick={handleWishlist}>
               {inWishlist ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
             </div>
-
           </div>
-
         </div>
 
 
@@ -136,32 +149,12 @@ const ProductDetail = () => {
             ))}
           </div>
         </div>
-        {/* </div> */}
+
       </div>
-      {/* {isOwner && (
-        <div>
-          <OpenModalButton
-            buttonText="Edit product"
-            // onItemClick={closeMenu}
-            modalComponent={<EditProductModal product={product} />}
-          />
-          <OpenModalButton
-            buttonText="Delete product"
-            // onItemClick={closeMenu}
-            modalComponent={<DeleteProductModal product={product} />}
-          />
-        </div>
-      )} */}
+
     </>
   )
 
-  // return (
-  //   <div className="product-detail__wrapper">
-  //     <div className="product-detail__images"></div>
-  //     <div className="product-detail__info"></div>
-  //     <div className="product-detail__reviews-wrapper"></div>
-  //   </div>
-  // )
 }
 
 export default ProductDetail
