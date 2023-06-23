@@ -172,3 +172,9 @@ div .product-detail__reviews-wrapper {
 .product-detail__reviews-wrapper {
   /* border: 2px solid lawngreen; */
 }
+
+.product-form__wrapper {
+  width: 30rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
