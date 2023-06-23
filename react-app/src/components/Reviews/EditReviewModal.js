@@ -45,7 +45,7 @@ export default function EditReviewModal({ prop }) {
   console.log('🎃~~~~~~~stars', stars)
   return (
     <div className='modal-card'>
-      <h2>How was your stay?</h2>
+      <h2>Edit your review</h2>
       {errors.review && <p className='errors form__errors'>{errors.review}</p>}
       <textarea
         value={review}

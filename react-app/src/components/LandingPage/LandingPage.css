@@ -1,5 +1,5 @@
 .landing-page__image-wrapper {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://cdn.discordapp.com/attachments/1106274559671418943/1119406195577458698/87767e8ef4bb3d828cc1382a8cd9485b.png');
+  background-image: url('https://cdn.discordapp.com/attachments/1106274559671418943/1119406195577458698/87767e8ef4bb3d828cc1382a8cd9485b.png');
   /* background-image: url('https://cdn.discordapp.com/attachments/1106274559671418943/1119407559569317938/at_art_design_2021-02_Greendigs-plants_zoom_backgrounds_zoombackground-2.jpeg'); */
   background-size: cover;
   background-repeat: no-repeat;

@@ -35,11 +35,11 @@ function SignupFormModal() {
 		email.length < 30 || (formErrors.email = 'email is required and must be less than 50 characters.');
 		password || (formErrors.password = 'password is required.');
 		password.length < 225 || (formErrors.password = 'password is too long');
-		confirmPassword || (formErrors.confirmPassword = 'confirmPassword is required.');
 		password === confirmPassword || (formErrors.confirmPassword = 'passwords do not match');
 
 		const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		const isValidEmail = validEmail.test(email);
+
 		isValidEmail || (formErrors.email = 'please enter a valid email')
 
 
@@ -64,64 +64,79 @@ function SignupFormModal() {
 	};
 
 	return (
-		<>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
+		<div className="modal-form__wrapper">
+			<div className="modal-form__header">
+				<h2>Sign Up</h2>
+			</div>
+			<form onSubmit={handleSubmit} className="modal-form__form">
 				<p className='errors form__errors'>{errors.validations}</p>
+				<div className="input-wrapper">
+					<label>
+						First Name:
+						<input
+							type="text"
+							value={firstName}
+							className="input-info"
+							onChange={(e) => setFirstName(e.target.value)}
+						/>
+					</label>
+					<p className='errors form__errors'>{errors.firstName}</p>
+				</div>
 
-				<label>
-					First Name
-					<input
-						type="text"
-						value={firstName}
-						onChange={(e) => setFirstName(e.target.value)}
-					/>
-				</label>
-				<p className='errors form__errors'>{errors.firstName}</p>
+				<div className="input-wrapper">
+					<label>
+						Last Name:
+						<input
+							type="text"
+							value={lastName}
+							className="input-info"
+							onChange={(e) => setLastName(e.target.value)}
+						/>
+					</label>
+					<p className='errors form__errors'>{errors.lastName}</p>
+				</div>
 
-				<label>
-					Last Name
-					<input
-						type="text"
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
-					/>
-				</label>
-				<p className='errors form__errors'>{errors.lastName}</p>
+				<div className="input-wrapper">
+					<label>
+						Email:
+						<input
+							type="text"
+							value={email}
+							className="input-info"
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+					</label>
+					<p className='errors form__errors'>{errors.email}</p>
+				</div>
 
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-				</label>
-				<p className='errors form__errors'>{errors.email}</p>
+				<div className="input-wrapper">
+					<label>
+						Password:
+						<input
+							type="password"
+							value={password}
+							className="input-info"
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+					</label>
+					<p className='errors form__errors'>{errors.password}</p>
+				</div>
 
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-				</label>
-				<p className='errors form__errors'>{errors.password}</p>
-
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-					/>
-				</label>
-				<p className='errors form__errors'>{errors.confirmPassword}</p>
-
-				<button type="submit">Sign Up</button>
+				<div className="input-wrapper">
+					<label>
+						Confirm Password:
+						<input
+							type="password"
+							value={confirmPassword}
+							className="input-info"
+							onChange={(e) => setConfirmPassword(e.target.value)}
+						/>
+					</label>
+					<p className='errors form__errors'>{errors.confirmPassword}</p>
+				</div >
+				<button type="submit" className="form-button signup-button">Sign Up</button>
 			</form>
-		</>
+		</div>
 	);
 }
 

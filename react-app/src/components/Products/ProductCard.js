@@ -2,12 +2,17 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToWishlistThunk } from '../../store/wishlist'
 import { removeFromWishlistThunk } from '../../store/wishlist'
+import { useModal } from '../../context/Modal';
+import LoginFormModal from "../LoginFormModal"
 
 import './Products.css'
 const ProductCard = ({ product }) => {
   const history = useHistory()
   const dispatch = useDispatch()
+  const { setModalContent, setOnModalClose } = useModal();
   const wishlist = useSelector(state => state.wishlist)
+  const user = useSelector(state => state.session.user)
+
   const { id, title, description, price, userId, productImages, createdAt, numReviews, avgRating } = product
 
   //TODO: set up preview image
@@ -19,6 +24,9 @@ const ProductCard = ({ product }) => {
   const inWishlist = product.id in wishlist
 
   const handleWishlist = async (e) => {
+    if (!user) {
+      setModalContent(<LoginFormModal />);
+    }
     const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
   }
 

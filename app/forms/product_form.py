@@ -7,4 +7,11 @@ class ProductForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     price = DecimalField(label='Price', places=2, validators=[NumberRange(min=0)])
-    images = StringField('Image')
+    image = StringField('Image', validators=[DataRequired()])
+    # image1 = StringField('Image')
+    # image2 = StringField('Image')
+    # image3 = StringField('Image')
+    # image4 = StringField('Image')
+ 
+
+

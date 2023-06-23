@@ -16,7 +16,7 @@ const DeleteProductModal = ({ product }) => {
   return (
     <div>
       <h1>Confirm Delete</h1>
-      <p>Are you sure you want to remove this spot from your listings?</p>
+      <p>Are you sure you want to remove this product from your store</p>
       <button onClick={handleDelete}>Yes, delete product</button>
       <button onClick={closeModal}>No, keep product</button>
     </div>
