@@ -35,5 +35,83 @@ button {
 button:hover {
   cursor: pointer;
   box-shadow: 0px 0px 10px rgb(75, 75, 75);
+}
 
+.modal-form__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+  padding: 1rem;
+  border-radius: 10px;
+  width: 20rem;
+}
+
+.modal-form__header {
+  margin-top: 1rem;
+  /* margin-bottom: 1rem; */
+  padding-bottom: .5rem;
+  border-bottom: 1px solid lightgray;
+  width: 100%;
+  text-align: center;
+}
+
+.modal-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+label .landing-page__form {
+  display: block;
+  color: red;
+  font-size: 15px;
+}
+
+label {
+  font-size: 14px;
+}
+
+.input-info {
+  padding: .5rem;
+  border-radius: 8px;
+  border: 1px solid #dcdfe2;
+  width: 100%;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-button {
+  width: 100%;
+}
+
+.signup-button {
+  background-color: #45C1A0;
+}
+
+.login-button {
+  background-color: #EEAEAC;
+}
+
+.errors {
+  color: red;
+  font-size: 10px;
+  padding-left: .5rem;
+}
+
+.form-sublabel {
+  color: gray;
+  font-size: 12px;
+}
+
+.product-form {
+  padding-bottom: .5rem;
 }

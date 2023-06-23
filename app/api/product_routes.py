@@ -104,20 +104,32 @@ def create_product():
 
         product['productImages'] =[]
 
-        images = form.data['images']
+        image = form.data['image']
+        # image1 = form.data['image1']
+        # image2 = form.data['image2']
+        # image3 = form.data['image3']
+        # image4 = form.data['image4']
+
+        # images = [form.data['image'],form.data['image1'],form.data['image2'],form.data['image3'],form.data['image4']]
+
         # change this with aws later
+        # for image in images:
+            # if image is not None:
         new_image = ProductImages(
                 product_id = product['id'],
-                image_url = images
+                image_url = image
             )
 
         db.session.add(new_image)
         db.session.commit()
 
+        # product["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+        # del product['seller']['id']
+
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-     
     
+   
     return product
 
 

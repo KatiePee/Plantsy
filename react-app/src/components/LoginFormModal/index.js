@@ -46,36 +46,43 @@ function LoginFormModal() {
   }
 
   return (
-    <>
-      <h1>Log In test!!</h1>
-      <form onSubmit={handleSubmit}>
-        <p className="errors">
-          <p className='errors form__errors'>{errors.validations}</p>
-        </p>
-        <label>
-          Email
+    <div className="modal-form__wrapper">
+      <div className="modal-form__header">
+        <h2>Log In</h2>
+      </div>
+      <form onSubmit={handleSubmit} className="modal-form__form">
+        <p className='errors form__errors'>{errors.validations}</p>
+        <div className="input-wrapper">
+          <label htmlFor='email'>
+            Email:
+          </label>
           <input
             type="text"
+            name='email'
             value={email}
+            className="input-info"
             onChange={(e) => setEmail(e.target.value)}
-
           />
-        </label>
-        <p className='errors form__errors'>{errors.email}</p>
-        <label>
-          Password
+          <p className='errors form__errors'>{errors.email}</p>
+        </div>
+        <div className="input-wrapper">
+          <label htmlFor='password'>
+            Password:
+          </label>
           <input
             type="password"
+            name='password'
             value={password}
+            className="input-info"
             onChange={(e) => setPassword(e.target.value)}
-
           />
-        </label>
-        <p className='errors form__errors'>{errors.password}</p>
-        <button type="submit" onClick={handleSubmit} >Log In</button>
+          <p className='errors form__errors'>{errors.password}</p>
+        </div>
+
+        <button type="submit" onClick={handleSubmit} className="form-button login-button">Log In</button>
+        <button onClick={demoUser} className="form-button signup-button">Demo User</button>
       </form>
-      <button onClick={demoUser}>Demo User</button>
-    </>
+    </div>
   );
 }
 
