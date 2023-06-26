@@ -118,7 +118,7 @@ const EditProductModal = ({ product }) => {
           />
           <p className="errors form__errors">{errors.price}</p>
         </div>
-        <div className="input-wrapper product-form">
+        {/* <div className="input-wrapper product-form">
           <label>
             Photos:
           </label>
@@ -133,77 +133,17 @@ const EditProductModal = ({ product }) => {
             onChange={(e) => setImage(e.target.value)}
           />
           <p className="errors form__errors">{errors.image}</p>
-        </div>
+        </div> */}
         {/* <div className="product-form-btn-wrapper"> */}
         <button className="form-button signup-btn" type='submit'>
-          Create Product
+          Save Changes
         </button>
         {/* </div> */}
       </form>
     </div>
   )
 
-  // return (
-  //   <div className="product-form__wrapper">
-  //     <h3>Edit your product</h3>
-  //     <form encType="multipart/form-data" onSubmit={handleSubmit}>
-  //       <p className='errors form__errors'>{errors.validations}</p>
-  //       <div className="product-form__title">
-  //         <label>
-  //           <input
-  //             type="text"
-  //             className="input-info product-form__title-input"
-  //             placeholder="Product title"
-  //             value={title}
-  //             onChange={(e) => setTitle(e.target.value)}
-  //           />
-  //           <p className="errors form__errors">{errors.title}</p>
-  //         </label>
-  //       </div>
-  //       <div className="product-form__description">
-  //         <label>
-  //           <input
-  //             type="text"
-  //             className="input-info product-form__description-input"
-  //             placeholder="Product description"
-  //             value={description}
-  //             onChange={(e) => setDescription(e.target.value)}
-  //           />
-  //           <p className="errors form__errors">{errors.description}</p>
-  //         </label>
-  //       </div>
-  //       <div className="product-form__price">
-  //         <label>
-  //           <input
-  //             type="number"
-  //             className="input-info product-form__price-input"
-  //             placeholder="Product price"
-  //             value={price}
-  //             onChange={(e) => setPrice(e.target.value)}
-  //           />
-  //           <p className="errors form__errors">{errors.price}</p>
-  //         </label>
-  //       </div>
-  //       {/* <div className="product-form__image">
-  //         <label>
-  //           <input
-  //             type="text"
-  //             className="input-info product-form__image-input"
-  //             placeholder="Product image"
-  //             value={image}
-  //             onChange={(e) => setImage(e.target.value)}
-  //           />
-  //           <p className="errors form__errors">{errors.image}</p>
-  //         </label>
-  //       </div> */}
-  //       <div className="product-form-btn-wrapper">
-  //         <button className="signup-btn" type='submit'>
-  //           Edit Product
-  //         </button>
-  //       </div>
-  //     </form>
-  //   </div>
-  // )
+
 }
 
 export default EditProductModal
