@@ -29,7 +29,7 @@ class Product(db.Model):
             "title": self.title,
             "description": self.description,
             "price": self.price,
-            "productImages": [image.to_dict() for image in self.product_images],
+            "images": [image.to_dict() for image in self.product_images],
             "reviews": [review.to_dict() for review in self.reviews],
             "seller": self.user.to_dict(),
             "createdAt": self.created_at

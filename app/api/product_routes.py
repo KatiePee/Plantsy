@@ -15,6 +15,9 @@ def products():
     products_list = []
     for product in products:
         product_dic = product.to_dict()
+        product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+        product_dic['seller'] = product.user.to_dict()
+        del product_dic['seller']['id']
         product_dic['numReviews'] = len(product.reviews)
         if product.reviews:
             avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
@@ -37,6 +40,9 @@ def current_user_products():
     products_list = []
     for product in products:
         product_dic = product.to_dict()
+        product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+        product_dic['seller'] = product.user.to_dict()
+        del product_dic['seller']['id']
         product_dic['numReviews'] = len(product.reviews)
         if product.reviews:
             avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
@@ -58,6 +64,9 @@ def single_product(id):
 
     product = Product.query.get(id)
     product_dic = product.to_dict()
+    product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
+    product_dic['seller'] = product.user.to_dict()
+    del product_dic['seller']['id']
     product_dic['numReviews'] = len(product.reviews)
     if product.reviews:
         avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
@@ -113,14 +122,14 @@ def create_product():
 
         db.session.add(new_image)
         db.session.commit()
-        db.session.refresh(new_product)
+
         # product["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
         # del product['seller']['id']
 
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
     
-    print('🎃~~~~~~~~ product has images....?', new_product.to_dict())
+   
     return product
 
 
