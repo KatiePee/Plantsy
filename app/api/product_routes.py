@@ -113,14 +113,14 @@ def create_product():
 
         db.session.add(new_image)
         db.session.commit()
-
+        db.session.refresh(new_product)
         # product["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
         # del product['seller']['id']
 
     if form.errors:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 401
     
-   
+    print('🎃~~~~~~~~ product has images....?', new_product.to_dict())
     return product
 
 
