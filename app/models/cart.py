@@ -13,7 +13,7 @@ class Cart(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     updated_at = db.Column(db.DateTime, default=datetime.utcnow())
 
-    cart_items = db.relationship('Cart_Items', back_populates='cart')
+    cart_items = db.relationship('Cart_Item', back_populates='cart')
     user = db.relationship('User', back_populates='cart')
    
 
