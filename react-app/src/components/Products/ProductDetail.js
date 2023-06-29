@@ -13,7 +13,7 @@ import CreateReviewModal from "../Reviews/CreateReviewModal"
 import LoginFormModal from "../LoginFormModal"
 import StarRatings from 'react-star-ratings';
 import { useModal } from '../../context/Modal';
-
+import { addToCartThunk } from "../../store/cart"
 
 import './Products.css'
 
@@ -68,6 +68,12 @@ const ProductDetail = () => {
     index === productImages.length - 1 ? setIndex(0) : setIndex(index + 1)
   }
 
+  const addToCart = async () => {
+    await dispatch(addToCartThunk())
+
+    console.log('🤡~~~~~~~~~~~~~~ add to car button')
+  }
+
   return (
     <>
       <div className="product-detail__wrapper">
@@ -109,7 +115,9 @@ const ProductDetail = () => {
           <p className="product-detail__title">{title}</p>
           <h3 className="product-detail__desc-header">Description:</h3>
           <p className="product-detail__description">{description}</p>
-          <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button>
+          {/* <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button> */}
+          <button className="product-detail__cart" onClick={addToCart}>Add to cart</button>
+
         </div>
 
 

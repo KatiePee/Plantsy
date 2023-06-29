@@ -38,7 +38,6 @@ def upgrade():
     sa.Column('cart_id', sa.Integer(), nullable=False),
     sa.Column('product_id', sa.Integer(), nullable=True),
     sa.Column('quantity', sa.Integer(), nullable=False),
-    sa.Column('price_at_order', sa.Numeric(precision=10, scale=2), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['cart_id'], ['carts.id'], ),
