@@ -10,15 +10,14 @@ export const addToCartThunk = () => async dispatch => {
   //   method: 'POST',
   //   body: { quantity }
   // })
-  console.log('HITS THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-  console.log(process.env.PUBLIC_URL);
+  console.log('🤡~~~~~ addto cart thunk - before fetch')
 
   const res = await fetch(`/api/cart/1/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: { quantity: 3 }
+    body: JSON.stringify({ "quantity": 3, "product_id": 1 })
   })
   if (res.ok) {
     const cartItem = await res.json();

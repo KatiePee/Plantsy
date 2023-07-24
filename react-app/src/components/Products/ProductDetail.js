@@ -69,9 +69,10 @@ const ProductDetail = () => {
   }
 
   const addToCart = async () => {
+    console.log('💄~~~ add to cart button hits -- before dispatch')
     await dispatch(addToCartThunk())
 
-    console.log('🤡~~~~~~~~~~~~~~ add to car button')
+    console.log('💄~~~ add to cart button hits -- AFTER dispatch')
   }
 
   return (

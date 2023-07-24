@@ -41,7 +41,6 @@ def authenticate():
             products_list.append(product_dic)
 
         user_dic['Products'] = products_list
-        print('🤡~~🤡~~🤡~~🤡~~~~~~~current user~', user_dic)
         return user_dic
         
     return {'errors': ['Unauthorized']}
@@ -81,7 +80,6 @@ def login():
             products_list.append(product_dic)
 
         user_dic['Products'] = products_list
-        print('🤡~~🤡~~🤡~~🤡~~~~~~~current user~', user_dic)
         return user_dic
 
         # return user.to_dict()
