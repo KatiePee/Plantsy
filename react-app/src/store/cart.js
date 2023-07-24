@@ -17,7 +17,7 @@ export const addToCartThunk = () => async dispatch => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ "quantity": 3, "product_id": 1 })
+    body: JSON.stringify({ "quantity": 3, "product_id": 4 })
   })
   if (res.ok) {
     const cartItem = await res.json();
