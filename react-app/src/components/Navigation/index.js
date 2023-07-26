@@ -6,6 +6,8 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
+	const cart = useSelector(state => state.cart)
+
 
 	return (
 		<div className='nav-bar'>
@@ -14,7 +16,8 @@ function Navigation({ isLoaded }) {
 				<div className='nav-bar-buttons'>
 					<ProfileButton user={sessionUser} />
 					<div className='nav-bar__cart' onClick={() => alert('feature coming soon')}>
-						<i class="fa-solid fa-cart-shopping"></i>
+						<i className="fa-solid fa-cart-shopping"></i>
+						<div className='cart_bubble'>{cart.items.length}</div>
 					</div>
 				</div>
 			)}
