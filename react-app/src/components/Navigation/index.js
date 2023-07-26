@@ -22,6 +22,7 @@ function Navigation({ isLoaded }) {
 		fetchData()
 	}, [])
 
+	if (isLoading) return <div>Loading...</div>;
 
 	return (
 		<div className='nav-bar'>

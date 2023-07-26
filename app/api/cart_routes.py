@@ -11,7 +11,10 @@ def load_cart():
     """
     Load all cart items
     """
-    return current_user.cart.to_dict()
+    cart = current_user.cart[0]
+
+    print('🎃~~~~~~~~ load cart - current user cart', cart.to_dict())
+    return cart.to_dict()
 
 @cart_routes.route('/<int:product_id>/add', methods=['POST'])
 @login_required
