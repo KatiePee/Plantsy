@@ -1,0 +1,9 @@
+.cart-pic {
+  width: 100px;
+  height: 100px;
+}
+
+.cart-modal {
+  height: 100vh;
+  overflow: auto
+}

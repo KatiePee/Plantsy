@@ -1,5 +1,6 @@
 const LOAD_CART = 'cart/loadCart'
 const ADD_TO_CART = 'cart/addToCart'
+const EDIT_CART = 'cart/editCart'
 
 const loadCart = (cart) => ({
   type: LOAD_CART,
@@ -11,21 +12,20 @@ const addToCart = (cartItem) => ({
   payload: cartItem
 })
 
+// const editCart = (cart) => ({
+//   type: 
+// })
+
 export const loadCartThunk = () => async dispatch => {
   const res = await fetch('/api/cart/')
   if (res.ok) {
     const cart = await res.json();
-    await dispatch(loadCart())
+    await dispatch(loadCart(cart))
     return cart
   } else return null
 }
-export const addToCartThunk = (productId, quantity) => async dispatch => {
-  // const res = await fetch(`api/cart/${productId}/add`, {
-  //   method: 'POST',
-  //   body: { quantity }
-  // })
-  console.log('🤡~~~~~ addto cart thunk - before fetch')
 
+export const addToCartThunk = (productId, quantity) => async dispatch => {
   const res = await fetch(`/api/cart/${productId}/add`, {
     method: 'POST',
     headers: {
@@ -36,11 +36,9 @@ export const addToCartThunk = (productId, quantity) => async dispatch => {
   if (res.ok) {
     const cart = await res.json();
     await dispatch(addToCart(cart))
-    console.log('🎃~~~~~~~~~~~ res ok cart added cart item:', cart)
     return cart
   } else {
     const errors = await res.json()
-    console.log('🤑~~~~~~~~~ add cart errors: ', errors)
   }
 }
 

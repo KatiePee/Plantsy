@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
+import './Cart.css'
 
 export default function CartModal() {
   const cart = useSelector(state => state.cart)
   const { closeModal } = useModal()
 
   return (
-    <div>
+    <div className='cart-modal'>
       <h1>Cart Modal!</h1>
       {cart.items.map(item => (
-        <img src={item.product.productImages[0]} />
+        <div>
+          <img className='cart-pic' src={item.product.productImages[0].imageUrl} />
+          <h3>{item.product.title}</h3>
+          <p>{item.product.price}</p>
+          <div className='quantity'>
+            <button>-</button>
+            {item.quantity}
+            <button>+</button>
+            <p>remove</p>
+          </div>
+        </div>
+
       ))}
     </div>
   )
