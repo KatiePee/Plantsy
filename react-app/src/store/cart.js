@@ -1,10 +1,24 @@
+const LOAD_CART = 'cart/loadCart'
 const ADD_TO_CART = 'cart/addToCart'
+
+const loadCart = (cart) => ({
+  type: LOAD_CART,
+  payload: cart
+})
 
 const addToCart = (cartItem) => ({
   type: ADD_TO_CART,
   payload: cartItem
 })
 
+export const loadCartThunk = () => async dispatch => {
+  const res = await fetch('/api/cart/')
+  if (res.ok) {
+    const cart = await res.json();
+    await dispatch(loadCart())
+    return cart
+  } else return null
+}
 export const addToCartThunk = (productId, quantity) => async dispatch => {
   // const res = await fetch(`api/cart/${productId}/add`, {
   //   method: 'POST',
@@ -34,6 +48,9 @@ const initialState = {}
 export default function cartReducer(state = initialState, action) {
   let newState
   switch (action.type) {
+    case LOAD_CART:
+      newState = { ...action.payload }
+      return newState
     case ADD_TO_CART:
       newState = { ...action.payload }
       return newState

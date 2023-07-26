@@ -5,6 +5,14 @@ from app.forms import CartForm
 
 cart_routes = Blueprint('cart', __name__)
 
+@cart_routes.route('/')
+@login_required
+def load_cart():
+    """
+    Load all cart items
+    """
+    return current_user.cart.to_dict()
+
 @cart_routes.route('/<int:product_id>/add', methods=['POST'])
 @login_required
 def add_cart_item(product_id):
