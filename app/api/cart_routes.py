@@ -66,8 +66,20 @@ def edit_cart(itemId):
     item.quantity = data['quantity']
     cart.total += item.product.price * (data['quantity'] - curr_quantity)
     db.session.commit()
-    
+
     print('🍎~~~~~~~ edit cart request body: ' , data)
     print('🎃~~~~~~~ edit cart cart item quantity: ', item.quantity)
     return cart.to_dict()
 
+@cart_routes.route('/<int:itemId>/delete', methods=['DELETE'])
+@login_required
+def remove_from_cart(itemId):
+    """
+    Remove item from cart by item id
+    """
+    item = Cart_Item.query.get(itemId)
+    cart = current_user.cart[0]
+    cart.total -= item.product.price * item.quantity
+    db.session.delete(item)
+    db.session.commit()
+    return cart.to_dict()

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { editCartThunk } from '../../store/cart';
+import { editCartThunk, removeFromCartThunk } from '../../store/cart';
 
 export default function CartItem({ item }) {
   const [quantity, setQuantity] = useState(item?.quantity);
@@ -16,6 +16,10 @@ export default function CartItem({ item }) {
     await setQuantity(quantity + 1)
   }
 
+  const handelRemove = async () => {
+    await dispatch(removeFromCartThunk(item.id))
+  }
+
   console.log('🤡~~~~~~~~ quantity outside', quantity)
   return (
     <div>
@@ -27,7 +31,7 @@ export default function CartItem({ item }) {
           <button onClick={handelMinus}>-</button>
           {quantity}
           <button onClick={handleAdd}>+</button>
-          <p>remove</p>
+          <p onClick={handelRemove}>remove</p>
         </div>
       </div>
 
