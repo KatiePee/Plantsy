@@ -13,7 +13,6 @@ def load_cart():
     """
     cart = current_user.cart[0]
 
-    print('🎃~~~~~~~~ load cart - current user cart', cart.to_dict())
     return cart.to_dict()
 
 @cart_routes.route('/<int:product_id>/add', methods=['POST'])
@@ -40,7 +39,6 @@ def add_cart_item(product_id):
         item.quantity = item.quantity + quantity
         cart.total = cart.total + (product.price * quantity)
         db.session.commit()
-        print('🎃~~~~~~~~ cart', cart.to_dict())
         return cart.to_dict()
 
     add_item = Cart_Item(
@@ -53,7 +51,6 @@ def add_cart_item(product_id):
     db.session.add(add_item)
     db.session.commit()
 
-    print('🎃~~~~~~~~ cart', cart.to_dict())
     return cart.to_dict()
   
 @cart_routes.route('/<int:itemId>/edit', methods=['PUT'])
@@ -68,8 +65,9 @@ def edit_cart(itemId):
     curr_quantity = item.quantity
     item.quantity = data['quantity']
     cart.total += item.product.price * (data['quantity'] - curr_quantity)
-
     db.session.commit()
-    print('🎃~~~~~~~ edit cart cart item: ', item)
+    
+    print('🍎~~~~~~~ edit cart request body: ' , data)
+    print('🎃~~~~~~~ edit cart cart item quantity: ', item.quantity)
     return cart.to_dict()
 
