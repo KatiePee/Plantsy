@@ -56,3 +56,20 @@ def add_cart_item(product_id):
     print('🎃~~~~~~~~ cart', cart.to_dict())
     return cart.to_dict()
   
+@cart_routes.route('/<int:itemId>/edit', methods=['PUT'])
+@login_required
+def edit_cart(itemId):
+    """
+    Edit the quantity of a cart item by cart item ID
+    """
+    data = request.json
+    cart = current_user.cart[0]
+    item = Cart_Item.query.get(itemId)
+    curr_quantity = item.quantity
+    item.quantity = data['quantity']
+    cart.total += item.product.price * (data['quantity'] - curr_quantity)
+
+    db.session.commit()
+    print('🎃~~~~~~~ edit cart cart item: ', item)
+    return cart.to_dict()
+

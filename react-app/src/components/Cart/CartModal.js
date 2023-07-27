@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { editCartThunk } from '../../store/cart';
 import './Cart.css'
 
 export default function CartModal() {
   const cart = useSelector(state => state.cart)
   const { closeModal } = useModal()
+  const dispatch = useDispatch()
 
+  const handelMinus = async () => {
+    return dispatch(editCartThunk(1, 10))
+  }
   return (
     <div className='cart-modal'>
       <h1>Cart Modal!</h1>
@@ -16,7 +21,7 @@ export default function CartModal() {
           <h3>{item.product.title}</h3>
           <p>{item.product.price}</p>
           <div className='quantity'>
-            <button>-</button>
+            <button onClick={handelMinus}>-</button>
             {item.quantity}
             <button>+</button>
             <p>remove</p>

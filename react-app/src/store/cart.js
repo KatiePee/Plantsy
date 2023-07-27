@@ -42,6 +42,23 @@ export const addToCartThunk = (productId, quantity) => async dispatch => {
   }
 }
 
+export const editCartThunk = (itemId, quantity) => async dispatch => {
+  const res = await fetch(`/api/cart/${itemId}/edit`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ quantity })
+  })
+  if (res.ok) {
+    const cart = await res.json();
+    await dispatch(loadCart(cart))
+    return cart
+  } else {
+    const errors = await res.json()
+  }
+}
+
 const initialState = {}
 export default function cartReducer(state = initialState, action) {
   let newState
