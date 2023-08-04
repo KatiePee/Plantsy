@@ -1,22 +1,30 @@
 /* TODO Add site wide styles */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lato:wght@100;300;400;700;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Outfit:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --logo-font: 'Dancing Script', cursive;
+  --normal-font: 'Quicksand', sans-serif;
+  --picture-color: #FEE3D8;
+  --regular-font: 14px;
+  --max-width: 1440px;
+  --logo-color: #339E00;
+  --color-pink: #EFAEAC;
+  --color-mint-green: #45C1A0;
+  --color-teal: #3C7D85;
+  --color-gold: #F8C27B;
+  --color-light-green: #CFE7D6;
+  --color-salmon: #FE7A75
+}
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Manrope', sans-serif;
-
+  font-family: var(--normal-font)
 }
 
-:root {
-  --logo-font: 'Dancing Script', cursive;
-  --picture-color: #FEE3D8;
-  --regular-font: 14px;
-  --max-width: 1440px;
-  --logo-color: #339E00
-}
 
 /* body {
   background-color: #FDEBD2;

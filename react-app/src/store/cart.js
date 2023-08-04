@@ -28,6 +28,7 @@ export const addToCartThunk = (productId, quantity) => async dispatch => {
     return cart
   } else {
     const errors = await res.json()
+    return errors
   }
 }
 
@@ -45,6 +46,7 @@ export const editCartThunk = (itemId, quantity) => async dispatch => {
     return cart
   } else {
     const errors = await res.json()
+    return errors
   }
 }
 
@@ -58,10 +60,11 @@ export const removeFromCartThunk = (itemId) => async dispatch => {
     return cart
   } else {
     const errors = await res.json()
+    return errors
   }
 }
 
-const initialState = {}
+const initialState = { items: [] }
 export default function cartReducer(state = initialState, action) {
   let newState
   switch (action.type) {

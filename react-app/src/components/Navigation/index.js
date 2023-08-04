@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
 	const dispatch = useDispatch()
 	const [isLoading, setIsLoading] = useState(true);
 
-
+	console.log('🛒🛒🛒🛒🛒🛒', cart.items)
 	useEffect(() => {
 		async function fetchData() {
 			await dispatch(loadCartThunk())
@@ -32,7 +32,7 @@ function Navigation({ isLoaded }) {
 					<ProfileButton user={sessionUser} />
 					<div className='nav-bar__cart' onClick={() => alert('feature coming soon')}>
 						<i className="fa-solid fa-cart-shopping"></i>
-						<div className='cart_bubble'>{cart.items.length}</div>
+						{cart && (<div className='cart_bubble'>{cart.items.length}</div>)}
 					</div>
 					<OpenModalButton
 						buttonText='cart'
