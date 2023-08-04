@@ -49,9 +49,9 @@
   transform-origin: bottom left;
 }
 
-.active {
+/* .active {
   color: var(--logo-color);
-}
+} */
 
 .user-profile__body {
   display: grid;

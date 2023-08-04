@@ -15,20 +15,22 @@
   --color-teal: #3C7D85;
   --color-gold: #F8C27B;
   --color-light-green: #CFE7D6;
-  --color-salmon: #FE7A75
+  --color-salmon: #FE7A75;
+
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: var(--normal-font)
+  font-family: var(--normal-font);
+
 }
 
 
-/* body {
-  background-color: #FDEBD2;
-} */
+body {
+  background-color: var(--color-light-green);
+}
 
 li {
   list-style: none;
