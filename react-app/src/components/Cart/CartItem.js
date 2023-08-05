@@ -20,22 +20,38 @@ export default function CartItem({ item }) {
     await dispatch(removeFromCartThunk(item.id))
   }
 
-  console.log('🤡~~~~~~~~ quantity outside', quantity)
   return (
-    <div>
-      <div>
+
+    <div className="cart-item" key={item.id}>
+      <div className="cart-item__left">
         <img className='cart-pic' src={item.product.productImages[0].imageUrl} />
-        <h3>{item.product.title}</h3>
-        <p>{item.product.price}</p>
-        <div className='quantity'>
-          <button onClick={handelMinus}>-</button>
-          {quantity}
-          <button onClick={handleAdd}>+</button>
-          <p onClick={handelRemove}>remove</p>
+      </div>
+      <div className="cart-item__right">
+        <div className="cart-item__info">
+          <p>{item.product.title}</p>
+          <p>{item.product.price}</p>
+        </div>
+        <div className="cart-item__change">
+          <div className="cart-item__quantity">
+            <i class="fa-solid fa-minus" onClick={handelMinus}></i>
+            <div className="quantity">{quantity}</div>
+            <i class="fa-solid fa-plus" onClick={handleAdd}></i>
+          </div>
+          <div className="cart-item__remove">
+            <i class="fa-solid fa-trash-can"></i>
+          </div>
         </div>
       </div>
 
-
+      {/* <div className='quantity'>
+        <button onClick={handelMinus}>-</button>
+        {quantity}
+        <button onClick={handleAdd}>+</button>
+        <p onClick={handelRemove}>remove</p>
+      </div> */}
     </div>
+
+
+
   )
 }

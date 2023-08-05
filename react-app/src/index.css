@@ -16,6 +16,7 @@
   --color-gold: #F8C27B;
   --color-light-green: #CFE7D6;
   --color-salmon: #FE7A75;
+  --color-headers: rgb(35, 75, 81);
 
 }
 
@@ -24,12 +25,14 @@
   margin: 0;
   padding: 0;
   font-family: var(--normal-font);
+  color: var(--color-headers);
 
 }
 
 
 body {
   background-color: var(--color-light-green);
+
 }
 
 li {

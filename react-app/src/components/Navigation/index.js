@@ -5,6 +5,7 @@ import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import CartModal from '../Cart/CartModal';
 import { loadCartThunk } from '../../store/cart';
+import Cart from '../Cart/Cart';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -49,6 +50,7 @@ function Navigation({ isLoaded }) {
 							buttonText='cart'
 							modalComponent={<CartModal />}
 						/>
+						<Cart />
 					</div>
 				)}
 			</div>

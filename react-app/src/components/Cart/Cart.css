@@ -5,5 +5,14 @@
 
 .cart-modal {
   height: 100vh;
-  overflow: auto
+  overflow: auto;
+  color: white;
+  /* background-color: pink; */
+}
+
+.slide-pane__content {
+  background-color: var(--color-teal);
+  background-color: var(--color-mint-green);
+  /* background-color: var(--color-pink); */
+  color: white;
 }
