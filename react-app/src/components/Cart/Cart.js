@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import CartModal from "./CartModal";
+
 import CartItem from './CartItem';
 import './Cart.css'
 
@@ -21,7 +21,7 @@ export default function Cart() {
       </button>
 
       <SlidingPane
-        className="cart"
+        className="cart-slide"
         overlayClassName="some-custom-overlay-class"
         isOpen={isOpen}
         onRequestClose={() => {
@@ -31,9 +31,13 @@ export default function Cart() {
         hideHeader
         width='25rem'
       >
-        {/* <CartModal /> */}
-        <div className='cart-modal modal-right'>
-          <h1 >Your Cart</h1>
+
+        <div className='cart'>
+          <div className="cart-header">
+            <h1 >Your Cart</h1>
+            <i class="fa-solid fa-x"></i>
+
+          </div>
           <div className='cart-items'>
             {cart.items.map(item => (
               <CartItem item={item} key={item.id} />

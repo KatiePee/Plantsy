@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
-import CartModal from '../Cart/CartModal';
 import { loadCartThunk } from '../../store/cart';
 import Cart from '../Cart/Cart';
 import './Navigation.css';
@@ -46,10 +45,7 @@ function Navigation({ isLoaded }) {
 							<i className="fa-solid fa-cart-shopping"></i>
 							{cart && (<div className='cart_bubble'>{cart.items.length}</div>)}
 						</div>
-						<OpenModalButton
-							buttonText='cart'
-							modalComponent={<CartModal />}
-						/>
+
 						<Cart />
 					</div>
 				)}
