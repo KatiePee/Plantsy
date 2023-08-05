@@ -17,7 +17,6 @@ const ProductCard = ({ product }) => {
 
   //TODO: set up preview image
   const image = productImages[0]
-
   const handleClick = () => {
     history.push(`/products/${id}`)
   }

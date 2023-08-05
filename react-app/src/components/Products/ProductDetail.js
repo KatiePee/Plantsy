@@ -13,14 +13,16 @@ import CreateReviewModal from "../Reviews/CreateReviewModal"
 import LoginFormModal from "../LoginFormModal"
 import StarRatings from 'react-star-ratings';
 import { useModal } from '../../context/Modal';
-
+import { addToCartThunk } from "../../store/cart"
 
 import './Products.css'
+import Cart from "../Cart/Cart"
 
 const ProductDetail = () => {
   const { productId } = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [index, setIndex] = useState(0)
+  const [showCart, setShowCart] = useState(false)
   const dispatch = useDispatch();
   const product = useSelector(state => state.products.singleProduct)
   const reviewsState = useSelector(state => state.reviews.product)
@@ -68,6 +70,13 @@ const ProductDetail = () => {
     index === productImages.length - 1 ? setIndex(0) : setIndex(index + 1)
   }
 
+  const addToCart = async () => {
+    await setShowCart(true)
+    await dispatch(addToCartThunk(product.id, 1))
+    // dispatch(addToCartThunk(product.id, 1)).then(() => setShowCart(true))
+    console.log('🎃~~~~~~ show cart in on click', showCart)
+  }
+
   return (
     <>
       <div className="product-detail__wrapper">
@@ -109,7 +118,10 @@ const ProductDetail = () => {
           <p className="product-detail__title">{title}</p>
           <h3 className="product-detail__desc-header">Description:</h3>
           <p className="product-detail__description">{description}</p>
-          <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button>
+          {/* <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button> */}
+          <button className="product-detail__cart" onClick={addToCart}>Add to cart</button>
+          <Cart visible={showCart} />
+
         </div>
 
 

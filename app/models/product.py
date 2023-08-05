@@ -20,18 +20,17 @@ class Product(db.Model):
     wishlist = db.relationship('User', secondary="wishlist",  back_populates="wishlist")
 
     product_images = db.relationship('ProductImages', back_populates='product', cascade='all, delete-orphan')
-    # cart_items = db.relationship('Cart_Item', back_populates='product')
+    cart_items = db.relationship('Cart_Item', back_populates='product')
 
     def to_dict(self):
         return {
             'id': self.id,
-            "userId": self.user_id,
             "title": self.title,
             "description": self.description,
             "price": self.price,
-            # "images": [image.to_dict() for image in self.product_images],
-            # "reviews": [review.to_dict() for review in self.reviews],
-            # "user": self.user.to_dict(),
+            "productImages": [image.to_dict() for image in self.product_images],
+            "reviews": [review.to_dict() for review in self.reviews],
+            "seller": self.user.to_dict(),
             "createdAt": self.created_at
         }
     
