@@ -47,10 +47,11 @@ export default function Cart({ visible }) {
           </div>
           <div className="line"></div>
           <div className="cart-footer">
-            <p>Subtotal: </p>
-            <p>$ {cart.total}</p>
+            <p className="cart-total">Subtotal: </p>
+            <p className="cart-total">$ {cart.total}</p>
           </div>
-          <button>Checkout</button>
+          <p className="cart-warning">Most items ship separately. Orders cannot be cancelled once placed.</p>
+          <button className="cart-button">Checkout</button>
         </div>
       </SlidingPane>
     </div>
