@@ -25,7 +25,7 @@ export default function Cart() {
           setIsOpen(false);
         }}
         hideHeader
-        width="25%"
+        width='25rem'
       >
         <CartModal />
       </SlidingPane>

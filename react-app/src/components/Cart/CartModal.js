@@ -15,9 +15,12 @@ export default function CartModal() {
   return (
     <div className='cart-modal modal-right'>
       <h1 >Your Cart</h1>
-      {cart.items.map(item => (
-        <CartItem item={item} key={item.id} />
-      ))}
+      <div className='cart-items'>
+        {cart.items.map(item => (
+          <CartItem item={item} key={item.id} />
+        ))}
+
+      </div>
     </div>
   )
 }
