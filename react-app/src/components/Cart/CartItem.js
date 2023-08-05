@@ -28,6 +28,7 @@ export default function CartItem({ item }) {
 
   return (
     <>
+      <div className="line"></div>
       <div className="cart-item" key={item.id}>
 
         <div className="cart-item__left">
@@ -57,7 +58,7 @@ export default function CartItem({ item }) {
         </div>
 
       </div>
-      <div className="line"></div>
+
     </>
   )
 }

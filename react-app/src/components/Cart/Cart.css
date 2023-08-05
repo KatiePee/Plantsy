@@ -60,6 +60,8 @@
   flex-direction: column;
   gap: 2rem;
   overflow-y: scroll;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 
 }
 
@@ -71,6 +73,21 @@
   font-weight: 600;
 }
 
+
+.cart-item__remove:hover {
+  cursor: pointer;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header>h1 {
+  font-weight: 600;
+}
+
 .line {
   height: 2px;
   border-top: 2px solid var(--color-headers);
@@ -78,6 +95,17 @@
   background-color: var(--color-pink);
 }
 
-.cart-item__remove:hover {
+.icon:hover {
   cursor: pointer;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-footer>p {
+  font-weight: 600;
+  font-size: 18px;
+
 }

@@ -16,11 +16,13 @@ import { useModal } from '../../context/Modal';
 import { addToCartThunk } from "../../store/cart"
 
 import './Products.css'
+import Cart from "../Cart/Cart"
 
 const ProductDetail = () => {
   const { productId } = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [index, setIndex] = useState(0)
+  const [showCart, setShowCart] = useState(false)
   const dispatch = useDispatch();
   const product = useSelector(state => state.products.singleProduct)
   const reviewsState = useSelector(state => state.reviews.product)
@@ -69,10 +71,10 @@ const ProductDetail = () => {
   }
 
   const addToCart = async () => {
-    console.log('💄~~~ add to cart button hits -- before dispatch')
+    await setShowCart(true)
     await dispatch(addToCartThunk(product.id, 1))
-
-    console.log('💄~~~ add to cart button hits -- AFTER dispatch')
+    // dispatch(addToCartThunk(product.id, 1)).then(() => setShowCart(true))
+    console.log('🎃~~~~~~ show cart in on click', showCart)
   }
 
   return (
@@ -118,6 +120,7 @@ const ProductDetail = () => {
           <p className="product-detail__description">{description}</p>
           {/* <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button> */}
           <button className="product-detail__cart" onClick={addToCart}>Add to cart</button>
+          <Cart visible={showCart} />
 
         </div>
 

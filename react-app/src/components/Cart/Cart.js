@@ -7,10 +7,12 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import CartItem from './CartItem';
 import './Cart.css'
 
-export default function Cart() {
+export default function Cart({ visible }) {
   // const [isOpen, setIsOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(visible);
   const cart = useSelector(state => state.cart)
+  console.log('🍎~~~~~~ show cart', isOpen)
+  console.log('🍎~~~~~~ show cart visible prop', visible)
 
 
   return (
@@ -35,14 +37,20 @@ export default function Cart() {
         <div className='cart'>
           <div className="cart-header">
             <h1 >Your Cart</h1>
-            <i class="fa-solid fa-x"></i>
-
+            <i onClick={() => setIsOpen(false)} class="fa-solid fa-x icon"></i>
           </div>
+          {/* <div className="line"></div> */}
           <div className='cart-items'>
             {cart.items.map(item => (
               <CartItem item={item} key={item.id} />
             ))}
           </div>
+          <div className="line"></div>
+          <div className="cart-footer">
+            <p>Subtotal: </p>
+            <p>$ {cart.total}</p>
+          </div>
+          <button>Checkout</button>
         </div>
       </SlidingPane>
     </div>
