@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import { loadCartThunk } from '../../store/cart';
-import Cart from '../Cart/Cart';
+import CartPane from '../Cart/CartPane';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -13,6 +13,8 @@ function Navigation({ isLoaded }) {
 	const user = useSelector(state => state.session.user)
 	const dispatch = useDispatch()
 	const [isLoading, setIsLoading] = useState(true);
+	const [showCart, setShowCart] = useState({ visible: false })
+
 
 	console.log('🛒🛒🛒🛒🛒🛒', cart.items)
 	useEffect(() => {
@@ -41,12 +43,15 @@ function Navigation({ isLoaded }) {
 				{isLoaded && (
 					<div className='nav-bar-buttons'>
 						<ProfileButton user={sessionUser} />
-						<div className='nav-bar__cart' onClick={() => alert('feature coming soon')}>
+						<div className='nav-bar__cart' onClick={() => setShowCart({ visible: true })}>
 							<i className="fa-solid fa-cart-shopping"></i>
-							{cart && (<div className='cart_bubble'>{cart.items.length}</div>)}
+							{cart.items.length && (<div className='cart_bubble'>{cart.items.length}</div>)}
 						</div>
 
-						<Cart />
+						<CartPane
+							visible={showCart.visible}
+							closePane={() => setShowCart({ visible: false })}
+						/>
 					</div>
 				)}
 			</div>

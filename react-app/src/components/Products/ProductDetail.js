@@ -16,13 +16,13 @@ import { useModal } from '../../context/Modal';
 import { addToCartThunk } from "../../store/cart"
 
 import './Products.css'
-import Cart from "../Cart/Cart"
+import CartPane from "../Cart/CartPane"
 
 const ProductDetail = () => {
   const { productId } = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [index, setIndex] = useState(0)
-  const [showCart, setShowCart] = useState(false)
+  const [showCart, setShowCart] = useState({ visible: false })
   const dispatch = useDispatch();
   const product = useSelector(state => state.products.singleProduct)
   const reviewsState = useSelector(state => state.reviews.product)
@@ -71,8 +71,8 @@ const ProductDetail = () => {
   }
 
   const addToCart = async () => {
-    await setShowCart(true)
     await dispatch(addToCartThunk(product.id, 1))
+    await setShowCart({ visible: true })
     // dispatch(addToCartThunk(product.id, 1)).then(() => setShowCart(true))
     console.log('🎃~~~~~~ show cart in on click', showCart)
   }
@@ -120,7 +120,11 @@ const ProductDetail = () => {
           <p className="product-detail__description">{description}</p>
           {/* <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button> */}
           <button className="product-detail__cart" onClick={addToCart}>Add to cart</button>
-          <Cart visible={showCart} />
+          {/* {showCart && (<CartPane visible={showCart} />)} */}
+          <CartPane
+            visible={showCart.visible}
+            closePane={() => setShowCart({ visible: false })}
+          />
 
         </div>
 
