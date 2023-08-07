@@ -1,6 +1,6 @@
 const LOAD_CART = 'cart/loadCart'
 
-const loadCart = (cart) => ({
+export const loadCart = (cart) => ({
   type: LOAD_CART,
   payload: cart
 })
@@ -11,7 +11,9 @@ export const loadCartThunk = () => async dispatch => {
     const cart = await res.json();
     await dispatch(loadCart(cart))
     return cart
-  } else return null
+  } else {
+    await dispatch(loadCart({ items: [] }))
+  }
 }
 
 export const addToCartThunk = (productId, quantity) => async dispatch => {
