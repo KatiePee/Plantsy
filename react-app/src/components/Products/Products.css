@@ -167,6 +167,10 @@ div .product-detail__reviews-wrapper {
 
 .product-detail__cart {
   width: 100%;
+  background-color: var(--color-pink);
+  font-size: 18px;
+  font-weight: 500;
+
 }
 
 .product-detail__reviews-wrapper {
