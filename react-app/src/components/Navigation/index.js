@@ -45,7 +45,7 @@ function Navigation({ isLoaded }) {
 						<ProfileButton user={sessionUser} />
 						<div className='nav-bar__cart' onClick={() => setShowCart({ visible: true })}>
 							<i className="fa-solid fa-cart-shopping"></i>
-							{cart.items.length && (<div className='cart_bubble'>{cart.items.length}</div>)}
+							{cart.items.length > 0 && (<div className='cart_bubble'>{cart.items.length}</div>)}
 						</div>
 
 						<CartPane
