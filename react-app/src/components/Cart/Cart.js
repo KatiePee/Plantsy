@@ -1,10 +1,16 @@
 import React, { Component, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { checkoutThunk } from "../../store/cart";
 import CartItem from "./CartItem";
 import './Cart.css'
 
 export default function Cart({ closePane }) {
   const cart = useSelector(state => state.cart)
+  const dispatch = useDispatch()
+
+  const handleCheckout = async () => {
+    await dispatch(checkoutThunk())
+  }
 
   return (
     <div className='cart'>
@@ -14,7 +20,7 @@ export default function Cart({ closePane }) {
       </div>
 
       <div className='cart-items'>
-        {cart.items.map(item => (
+        {cart.items?.map(item => (
           <CartItem item={item} key={item.id} />
         ))}
       </div>
@@ -24,7 +30,7 @@ export default function Cart({ closePane }) {
         <p className="cart-total">$ {cart.total}</p>
       </div>
       <p className="cart-warning">Most items ship separately. Orders cannot be cancelled once placed.</p>
-      <button className="cart-button">Checkout</button>
+      <button className="cart-button" onClick={handleCheckout}>Checkout</button>
     </div>
   )
 }

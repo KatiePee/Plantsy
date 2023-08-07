@@ -16,7 +16,7 @@ function Navigation({ isLoaded }) {
 	const [showCart, setShowCart] = useState({ visible: false })
 
 
-	console.log('🛒🛒🛒🛒🛒🛒', cart.items)
+	// console.log('🍎 navigation, cart . items', cart?.items)
 	useEffect(() => {
 		async function fetchData() {
 			await dispatch(loadCartThunk())
@@ -45,7 +45,7 @@ function Navigation({ isLoaded }) {
 						<ProfileButton user={sessionUser} />
 						<div className='nav-bar__cart' onClick={() => setShowCart({ visible: true })}>
 							<i className="fa-solid fa-cart-shopping"></i>
-							{cart && cart.items.length > 0 && (<div className='cart_bubble'>{cart.items.length}</div>)}
+							{cart && cart.items?.length > 0 && (<div className='cart_bubble'>{cart.items.length}</div>)}
 						</div>
 
 						<CartPane

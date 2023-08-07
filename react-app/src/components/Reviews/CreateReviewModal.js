@@ -55,8 +55,8 @@ export default function CreateReviewModal({ props: { product, user } }) {
       <div className="star-container">
         <StarRatings
           rating={stars}
-          starRatedColor="#ffd700"
-          starHoverColor='#ffd700'
+          starRatedColor="var(--color-gold)"
+          starHoverColor="var(--color-gold)"
           starSpacing='2px'
           changeRating={value => setStars(value)}
           svgIconPath="M63.893,24.277c-0.238-0.711-0.854-1.229-1.595-1.343l-19.674-3.006L33.809,1.15

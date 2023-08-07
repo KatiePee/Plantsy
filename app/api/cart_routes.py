@@ -83,3 +83,24 @@ def remove_from_cart(itemId):
     db.session.delete(item)
     db.session.commit()
     return cart.to_dict()
+
+@cart_routes.route('/checkout')
+@login_required
+def checkout():
+    """
+    Clear cart items and reset users cart to empty
+    """
+
+    cart = current_user.cart[0]
+    print('🍎~~🍎~~🍎~~🍎~~🍎~~🍎~~🍎~~ cart in checkout route before:', cart.to_dict())
+    cart_items = cart.cart_items
+
+    if current_user.id != cart.user_id:
+        return {'errors': "unauthorized"}, 401
+    
+    [db.session.delete(cart_item) for cart_item in cart_items]
+    cart.total = 0
+    db.session.commit()
+    print('🍎~~🍎~~🍎~~🍎~~🍎~~🍎~~🍎~~ cart in checkout route after:', cart.to_dict())
+
+    return cart.to_dict()
