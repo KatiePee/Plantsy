@@ -54,7 +54,7 @@ const ProductDetail = () => {
   const inWishlist = product.id in wishlist
   const handleWishlist = async (e) => {
     if (!user) {
-      setModalContent(<LoginFormModal />);
+      return setModalContent(<LoginFormModal />);
     }
     const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
   }
@@ -71,10 +71,12 @@ const ProductDetail = () => {
   }
 
   const addToCart = async () => {
+    if (!user) {
+      return setModalContent(<LoginFormModal />);
+    }
     await dispatch(addToCartThunk(product.id, 1))
     await setShowCart({ visible: true })
     // dispatch(addToCartThunk(product.id, 1)).then(() => setShowCart(true))
-    console.log('🎃~~~~~~ show cart in on click', showCart)
   }
 
   return (
@@ -136,7 +138,7 @@ const ProductDetail = () => {
           <div className='product-detail__avg-rating'>
             <StarRatings
               rating={avgRating}
-              starRatedColor="#ffd700"
+              starRatedColor="var(--color-gold)"
               starSpacing='2px'
               svgIconPath="M63.893,24.277c-0.238-0.711-0.854-1.229-1.595-1.343l-19.674-3.006L33.809,1.15
   C33.479,0.448,32.773,0,31.998,0s-1.48,0.448-1.811,1.15l-8.815,18.778L1.698,22.935c-0.741,0.113-1.356,0.632-1.595,1.343

@@ -106,3 +106,26 @@
   color: var(--color-headers)
     /* color: #3C7D85 */
 }
+
+.nav-bar__cart {
+  position: relative;
+}
+
+.nav-bar__cart:hover {
+  cursor: pointer;
+}
+
+.cart_bubble {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  background-color: var(--color-gold);
+  border-radius: 50%;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}

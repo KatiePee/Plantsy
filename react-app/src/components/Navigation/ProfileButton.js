@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useHistory } from "react-router-dom";
+import { loadCartThunk } from "../../store/cart";
 
 
 function ProfileButton({ user }) {
@@ -12,6 +13,7 @@ function ProfileButton({ user }) {
   const history = useHistory()
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const cart = useSelector(state => state.cart)
 
   const openMenu = () => {
     if (showMenu) return;
@@ -35,6 +37,7 @@ function ProfileButton({ user }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(loadCartThunk())
   };
 
   const redirectUserProfile = (e) => {
