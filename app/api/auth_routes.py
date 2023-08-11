@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Cart
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -41,7 +41,6 @@ def authenticate():
             products_list.append(product_dic)
 
         user_dic['Products'] = products_list
-        print('🤡~~🤡~~🤡~~🤡~~~~~~~current user~', user_dic)
         return user_dic
         
     return {'errors': ['Unauthorized']}
@@ -81,7 +80,6 @@ def login():
             products_list.append(product_dic)
 
         user_dic['Products'] = products_list
-        print('🤡~~🤡~~🤡~~🤡~~~~~~~current user~', user_dic)
         return user_dic
 
         # return user.to_dict()
@@ -113,6 +111,13 @@ def sign_up():
         )
         db.session.add(user)
         db.session.commit()
+        db.session.refresh(user)
+        cart = Cart(
+            user_id = user.id,
+            total = 0,
+        )
+        db. session.add(cart)
+        db.session.commit()
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -124,3 +129,4 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': ['Unauthorized']}, 401
+

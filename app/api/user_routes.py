@@ -58,5 +58,5 @@ def user_products():
         products_list.append(product_dic)
 
     user_dic['Products'] = products_list
-    print('🤡~~🤡~~🤡~~🤡~~~~~~~current user~', user_dic)
     return user_dic
+

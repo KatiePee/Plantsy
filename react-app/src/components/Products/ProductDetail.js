@@ -13,14 +13,16 @@ import CreateReviewModal from "../Reviews/CreateReviewModal"
 import LoginFormModal from "../LoginFormModal"
 import StarRatings from 'react-star-ratings';
 import { useModal } from '../../context/Modal';
-
+import { addToCartThunk } from "../../store/cart"
 
 import './Products.css'
+import CartPane from "../Cart/CartPane"
 
 const ProductDetail = () => {
   const { productId } = useParams()
   const [isLoading, setIsLoading] = useState(true);
   const [index, setIndex] = useState(0)
+  const [showCart, setShowCart] = useState({ visible: false })
   const dispatch = useDispatch();
   const product = useSelector(state => state.products.singleProduct)
   const reviewsState = useSelector(state => state.reviews.product)
@@ -52,7 +54,7 @@ const ProductDetail = () => {
   const inWishlist = product.id in wishlist
   const handleWishlist = async (e) => {
     if (!user) {
-      setModalContent(<LoginFormModal />);
+      return setModalContent(<LoginFormModal />);
     }
     const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
   }
@@ -66,6 +68,15 @@ const ProductDetail = () => {
   }
   const handleUp = () => {
     index === productImages.length - 1 ? setIndex(0) : setIndex(index + 1)
+  }
+
+  const addToCart = async () => {
+    if (!user) {
+      return setModalContent(<LoginFormModal />);
+    }
+    await dispatch(addToCartThunk(product.id, 1))
+    await setShowCart({ visible: true })
+    // dispatch(addToCartThunk(product.id, 1)).then(() => setShowCart(true))
   }
 
   return (
@@ -109,7 +120,14 @@ const ProductDetail = () => {
           <p className="product-detail__title">{title}</p>
           <h3 className="product-detail__desc-header">Description:</h3>
           <p className="product-detail__description">{description}</p>
-          <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button>
+          {/* <button className="product-detail__cart" onClick={() => alert('feature coming soon')}>Add to cart</button> */}
+          <button className="product-detail__cart" onClick={addToCart}>Add to cart</button>
+          {/* {showCart && (<CartPane visible={showCart} />)} */}
+          <CartPane
+            visible={showCart.visible}
+            closePane={() => setShowCart({ visible: false })}
+          />
+
         </div>
 
 
@@ -120,7 +138,7 @@ const ProductDetail = () => {
           <div className='product-detail__avg-rating'>
             <StarRatings
               rating={avgRating}
-              starRatedColor="#ffd700"
+              starRatedColor="var(--color-gold)"
               starSpacing='2px'
               svgIconPath="M63.893,24.277c-0.238-0.711-0.854-1.229-1.595-1.343l-19.674-3.006L33.809,1.15
   C33.479,0.448,32.773,0,31.998,0s-1.48,0.448-1.811,1.15l-8.815,18.778L1.698,22.935c-0.741,0.113-1.356,0.632-1.595,1.343

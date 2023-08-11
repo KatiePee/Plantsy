@@ -7,7 +7,7 @@ class ProductImages(db.Model):
         __table_args__ = {'schema': SCHEMA}
         
     id = db.Column(db.Integer, primary_key=True)
-    image_url = db.Column(db.String(255), nullable=False)
+    image_url = db.Column(db.String(255), nullable=False, default='https://cdn.discordapp.com/attachments/1106274559671418943/1123393345796964362/3704875-middle.png')
     product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')))
 
     product = db.relationship('Product', back_populates='product_images')
