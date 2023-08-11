@@ -6,6 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useHistory } from "react-router-dom";
 import { loadCartThunk } from "../../store/cart";
+import { useModal } from '../../context/Modal';
 
 
 function ProfileButton({ user }) {
@@ -14,6 +15,7 @@ function ProfileButton({ user }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
   const cart = useSelector(state => state.cart)
+  const { setModalContent, setOnModalClose } = useModal();
 
   const openMenu = () => {
     if (showMenu) return;
@@ -50,18 +52,18 @@ function ProfileButton({ user }) {
   return (
     <>
       <div onClick={openMenu} className="user-nav-button">
-        <i class="fa-regular fa-user" />
+        <i class="fa-regular fa-user icon" />
         <ul className={ulClassName} ref={ulRef}>
           {user ? (
             <>
-              <li onClick={redirectUserProfile}>{user.firstName}</li>
-              <li onClick={handleLogout}> Log Out </li>
-
+              <li onClick={redirectUserProfile}><i class="fa-solid fa-user"></i> {user.firstName}</li>
+              <li onClick={handleLogout}><i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out </li>
             </>
           ) : (
-            <>
-              <OpenModalButton
-                buttonText="Log In"
+            <> <li onClick={() => setModalContent(<LoginFormModal />)}><i class="fa-solid fa-arrow-right-to-bracket"></i> Log In</li>
+              <li onClick={() => setModalContent(<SignupFormModal />)}><i class="fa-solid fa-user-plus"></i>  Sign Up</li>
+              {/* <OpenModalButton
+                buttonText='Log In'
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
@@ -70,7 +72,7 @@ function ProfileButton({ user }) {
                 buttonText="Sign Up"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
-              />
+              /> */}
             </>
           )}
         </ul>
