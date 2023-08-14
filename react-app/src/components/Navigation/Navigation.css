@@ -59,7 +59,7 @@
 
 .user-nav-button:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 5px rgb(78, 77, 77);
+  box-shadow: var(--shadow-hover)
 }
 
 .nav-bar-buttons .icon {
@@ -138,13 +138,13 @@
 
 .nav-bar__cart:hover {
   cursor: pointer;
-  box-shadow: 0px 0px 5px rgb(78, 77, 77);
+  box-shadow: var(--shadow-hover)
 }
 
 .cart_bubble {
   position: absolute;
-  top: -14px;
-  right: -14px;
+  top: -8px;
+  right: -8px;
   background-color: var(--color-gold);
   border-radius: 50%;
   font-size: 14px;

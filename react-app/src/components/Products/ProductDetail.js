@@ -6,8 +6,7 @@ import OpenModalButton from "../OpenModalButton"
 import EditProductModal from "./EditProductModal"
 import DeleteProductModal from "./DeleteProductModal"
 import { productReviewsThunk } from "../../store/reviews"
-import { addToWishlistThunk } from '../../store/wishlist'
-import { removeFromWishlistThunk } from '../../store/wishlist'
+import { addToWishlistThunk, removeFromWishlistThunk, myWishlistThunk } from '../../store/wishlist'
 import ReviewCard from "../Reviews/ReviewCard"
 import CreateReviewModal from "../Reviews/CreateReviewModal"
 import LoginFormModal from "../LoginFormModal"
@@ -35,6 +34,7 @@ const ProductDetail = () => {
     async function fetchData() {
       await dispatch(singleProductsThunk(productId))
       await dispatch(productReviewsThunk(productId))
+      await dispatch(myWishlistThunk())
       setIsLoading(false)
     }
     fetchData()
@@ -57,6 +57,7 @@ const ProductDetail = () => {
       return setModalContent(<LoginFormModal />);
     }
     const data = inWishlist ? await dispatch(removeFromWishlistThunk(product)) : await dispatch(addToWishlistThunk(product))
+    return data
   }
 
   const handleIndex = (i) => {
