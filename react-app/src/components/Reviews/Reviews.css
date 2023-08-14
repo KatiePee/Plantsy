@@ -1,5 +1,5 @@
 .product-detail__reviews {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid gray;
 }
 
 .review__stars {
@@ -8,5 +8,5 @@
 }
 
 .product-detail__avg-rating {
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid gray;
 }

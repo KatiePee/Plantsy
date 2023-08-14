@@ -99,10 +99,11 @@ div .product-detail__reviews-wrapper {
   height: 5rem;
   width: 5rem;
   border-radius: 10px;
+  box-shadow: var(--shadow);
 }
 
 .product-detail__image-side:hover {
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-hover);
 }
 
 .product-detail__preview {
