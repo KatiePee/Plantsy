@@ -1,13 +1,16 @@
 import { useModal } from "../../context/Modal";
+import "./Cart.css";
 
 export default function CheckoutModal() {
-  const { closeModal } = useModal()
+  const { closeModal } = useModal();
 
   return (
-    <div>
-      <h2>Your order has been placed, enjoy!</h2>
+    <div className="checkout-wrapper">
+      <h3 className="checkout-header">Your order has been placed, enjoy!</h3>
 
-      <button onClick={closeModal}>Continue Shopping</button>
+      <button className="checkout-button" onClick={closeModal}>
+        Continue Shopping
+      </button>
     </div>
-  )
+  );
 }
