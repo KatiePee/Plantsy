@@ -34,10 +34,16 @@ const ReviewCard = ({ review }) => {
       </div>
       {user && user.id == review.userId && (
         <ul className="review-buttons">
-          <li onClick={() => setModalContent(<DeleteReviewModal />)}>
+          <li
+            onClick={() =>
+              setModalContent(<DeleteReviewModal review={review} />)
+            }
+          >
             <i class="fa-solid fa-trash-can"></i>Delete
           </li>
-          <li onClick={() => setModalContent(<EditReviewModal />)}>
+          <li
+            onClick={() => setModalContent(<EditReviewModal prop={review} />)}
+          >
             <i class="fa-regular fa-pen-to-square"></i>Edit
           </li>
         </ul>
