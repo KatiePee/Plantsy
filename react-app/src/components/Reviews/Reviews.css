@@ -10,3 +10,28 @@
 .product-detail__avg-rating {
   border-bottom: 1px solid gray;
 }
+
+.review-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: .5rem;
+  margin-top: .5rem;
+}
+
+.review-buttons>li {
+  color: var(--color-headers);
+  display: flex;
+  gap: .2rem;
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.review-buttons>li:hover{
+  transition: border-bottom 300ms, transform 300ms;
+    border-bottom: 2px solid var(--color-salmon);
+    /* opacity: .5; */
+    font-weight: 500;
+    cursor: pointer;
+}
