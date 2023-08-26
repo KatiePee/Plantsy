@@ -5,7 +5,7 @@ import { useModal } from "../../context/Modal";
 import { editReviewThunk } from "../../store/reviews";
 import { singleProductsThunk } from "../../store/products";
 import StarRatings from "react-star-ratings";
-
+import "./Reviews.css";
 export default function EditReviewModal({ prop }) {
   const history = useHistory();
   const { closeModal } = useModal();
