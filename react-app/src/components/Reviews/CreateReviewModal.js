@@ -45,7 +45,7 @@ export default function CreateReviewModal({ props: { product, user } }) {
   };
   return (
     <div className="modal-card">
-      <h2>How did you like your product?</h2>
+      <h2>Leave a review</h2>
       {errors.review && <p className="errors form__errors">{errors.review}</p>}
       <textarea
         value={review}
@@ -60,10 +60,11 @@ export default function CreateReviewModal({ props: { product, user } }) {
       )}
 
       <div className="star-container">
+        <span> Stars: </span>
         <StarRatings
           rating={stars}
-          starRatedColor="var(--color-gold)"
-          starHoverColor="var(--color-gold)"
+          starRatedColor="var(--color-salmon)"
+          starHoverColor="var(--color-salmon)"
           starSpacing="2px"
           changeRating={(value) => setStars(value)}
           svgIconPath="M63.893,24.277c-0.238-0.711-0.854-1.229-1.595-1.343l-19.674-3.006L33.809,1.15
@@ -77,8 +78,6 @@ export default function CreateReviewModal({ props: { product, user } }) {
           starDimension="20px"
           name="rating"
         />
-
-        <span> Stars</span>
       </div>
 
       <button type="submit" onClick={handleSubmit} disabled={disable}>

@@ -57,7 +57,9 @@
       width: 100%;
       text-align: center;
 }
-
+.modal-card > label{
+  display: block;
+}
 .modal-card > textarea {
   height: 7rem;
   width: 100%;

@@ -48,7 +48,7 @@ export default function EditReviewModal({ prop }) {
     <div className="modal-card">
       <h2>Leave a review</h2>
       {errors.review && <p className="errors form__errors">{errors.review}</p>}
-      <p>Review:</p>
+
       <textarea
         value={review}
         onChange={(e) => setReview(e.target.value)}
@@ -62,6 +62,7 @@ export default function EditReviewModal({ prop }) {
       )}
 
       <div className="star-container">
+        <span> Stars: </span>
         <StarRatings
           rating={stars}
           starRatedColor="var(--color-salmon)"
@@ -79,7 +80,6 @@ export default function EditReviewModal({ prop }) {
           starDimension="20px"
           name="rating"
         />
-        <span> Stars</span>
       </div>
 
       <button type="submit" onClick={handleSubmit} disabled={disable}>
