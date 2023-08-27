@@ -46,8 +46,9 @@ export default function EditReviewModal({ prop }) {
   console.log("🎃~~~~~~~stars", stars);
   return (
     <div className="modal-card">
-      <h2>Edit your review</h2>
+      <h2>Leave a review</h2>
       {errors.review && <p className="errors form__errors">{errors.review}</p>}
+      <p>Review:</p>
       <textarea
         value={review}
         onChange={(e) => setReview(e.target.value)}
@@ -63,8 +64,8 @@ export default function EditReviewModal({ prop }) {
       <div className="star-container">
         <StarRatings
           rating={stars}
-          starRatedColor="#ffd700"
-          starHoverColor="#ffd700"
+          starRatedColor="var(--color-salmon)"
+          starHoverColor="var(--color-salmon)"
           starSpacing="2px"
           changeRating={(value) => setStars(value)}
           svgIconPath="M63.893,24.277c-0.238-0.711-0.854-1.229-1.595-1.343l-19.674-3.006L33.809,1.15

@@ -46,13 +46,14 @@
       border-radius: 10px;
       width: 20rem;
       gap: 1rem;
+      background-color: var(--color-light-green);
 }
 
 .modal-card > h2{
     margin-top: 1rem;
       /* margin-bottom: 1rem; */
       padding-bottom: .5rem;
-      border-bottom: 1px solid lightgray;
+      border-bottom: 1px solid var(--color-headers);
       width: 100%;
       text-align: center;
 }
@@ -64,7 +65,15 @@
   padding: 10px;
   resize: none;
   overflow: scroll;
+  background-color: var(--color-light-green);
+  color: var(--color-headers);
 
+
+}
+
+.modal-card>textarea:focus{
+  outline: 1px solid  var(--color-pink);
+ 
 }
 
 .star-container{
@@ -79,6 +88,7 @@
 
 .modal-card>button{
   width: 100%;
-  background-color: var(--color-salmon);
+  background-color: var(--color-pink);
   font-weight: 500;
+  color: var(--color-headers);
 }
