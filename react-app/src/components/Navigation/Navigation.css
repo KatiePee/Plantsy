@@ -172,3 +172,9 @@
 .nav-links__links .active {
   color: red;
 }
+
+.header {
+  border-bottom: 1px solid lightgray;
+  /* margin-bottom: 1rem; */
+  box-shadow: 0px 0px 5px rgb(78, 77, 77)
+}
