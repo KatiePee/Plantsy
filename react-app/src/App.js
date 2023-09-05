@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
-import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
@@ -22,25 +21,23 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <LandingPage />
           </Route>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
+
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path='/products/new'>
+          <Route path="/products/new">
             <CreateProduct />
           </Route>
-          <Route path='/products/:productId/edit'>
+          <Route path="/products/:productId/edit">
             <EditProductModal />
           </Route>
-          <Route path='/products/:productId'>
+          <Route path="/products/:productId">
             <ProductDetail />
           </Route>
-          <Route path='/users'>
+          <Route path="/users">
             <UserProfile />
           </Route>
         </Switch>

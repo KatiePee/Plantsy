@@ -55,11 +55,11 @@ label {
 }
 
 .signup-button {
-  background-color: #45C1A0;
+  background-color: var(--color-green);
 }
 
 .login-button {
-  background-color: #EEAEAC;
+  background-color: var(--color-salmon);
 }
 
 .errors {

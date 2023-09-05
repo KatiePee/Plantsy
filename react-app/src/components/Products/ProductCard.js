@@ -51,7 +51,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       <div className={`product-card__wishlist ${inWishlist ? 'filled-heart' : 'empty-heart'}`} onClick={handleWishlist}>
-        {inWishlist ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}
+        {inWishlist ? <i className="fa-solid fa-heart"></i> : <i className="fa-regular fa-heart"></i>}
       </div>
 
     </div>
