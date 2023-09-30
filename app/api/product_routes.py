@@ -192,6 +192,7 @@ def reviews(id):
         review_dic["user"] = review.user.to_dict()
         review_list.append(review_dic)
     # return {'reviews': [review.to_dict() for review in reviews]}
+
     return {'reviews': review_list}
     
 @product_routes.route('/<int:id>/review/new', methods=['POST'])

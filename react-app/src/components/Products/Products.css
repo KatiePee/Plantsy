@@ -178,12 +178,43 @@ div .product-detail__reviews-wrapper {
 
 }
 
-.product-detail__reviews-wrapper {
-  /* border: 2px solid lawngreen; */
-}
-
 .product-form__wrapper {
   width: 30rem;
   margin: 0 auto;
   padding: 1rem;
+}
+
+.product-detail__reviews-header {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid gray;
+  padding-bottom: 1rem;
+
+}
+
+.product-detail__reviews {
+  border-bottom: 1px solid gray;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding-bottom: .5rem;
+}
+
+.product-detail__leave-review {
+  color: var(--color-headers);
+  display: flex;
+  gap: .2rem;
+
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.product-detail__leave-review:hover {
+  transition: border-bottom 300ms, transform 300ms;
+  border-bottom: 2px solid var(--color-salmon);
+
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
 }

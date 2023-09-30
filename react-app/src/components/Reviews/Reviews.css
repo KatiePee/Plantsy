@@ -1,21 +1,18 @@
-.product-detail__reviews {
-  border-bottom: 1px solid gray;
-}
-
 .review__stars {
   overflow-wrap: break-word;
   word-break: break-word;
+  display: flex;
+  justify-content: space-between;
+
 }
 
-.product-detail__avg-rating {
-  border-bottom: 1px solid gray;
-}
+
 
 .review-buttons {
   display: flex;
   gap: 1rem;
-  margin-bottom: .5rem;
-  margin-top: .5rem;
+  /* margin-bottom: .5rem; */
+  /* margin-top: .5rem; */
 }
 
 .review-buttons>li {
@@ -28,39 +25,41 @@
   border-bottom: 2px solid transparent;
 }
 
-.review-buttons>li:hover{
+.review-buttons>li:hover {
   transition: border-bottom 300ms, transform 300ms;
-    border-bottom: 2px solid var(--color-salmon);
-    /* opacity: .5; */
-    font-weight: 500;
-    cursor: pointer;
+  border-bottom: 2px solid var(--color-salmon);
+  /* opacity: .5; */
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.modal-card{
-    display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      /* background-color: red; */
-      padding: 1rem;
-      border-radius: 10px;
-      width: 20rem;
-      gap: 1rem;
-      background-color: var(--color-light-green);
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+  padding: 1rem;
+  border-radius: 10px;
+  width: 20rem;
+  gap: 1rem;
+  background-color: var(--color-light-green);
 }
 
-.modal-card > h2{
-    margin-top: 1rem;
-      /* margin-bottom: 1rem; */
-      padding-bottom: .5rem;
-      border-bottom: 1px solid var(--color-headers);
-      width: 100%;
-      text-align: center;
+.modal-card>h2 {
+  margin-top: 1rem;
+  /* margin-bottom: 1rem; */
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--color-headers);
+  width: 100%;
+  text-align: center;
 }
-.modal-card > label{
+
+.modal-card>label {
   display: block;
 }
-.modal-card > textarea {
+
+.modal-card>textarea {
   height: 7rem;
   width: 100%;
   border-radius: 10px;
@@ -73,12 +72,12 @@
 
 }
 
-.modal-card>textarea:focus{
-  outline: 1px solid  var(--color-pink);
- 
+.modal-card>textarea:focus {
+  outline: 1px solid var(--color-pink);
+
 }
 
-.star-container{
+.star-container {
   align-self: flex-start;
 }
 
@@ -88,9 +87,13 @@
   padding-left: .5rem;
 }
 
-.modal-card>button{
+.modal-card>button {
   width: 100%;
   background-color: var(--color-pink);
   font-weight: 500;
   color: var(--color-headers);
+}
+
+.review-name {
+  font-size: 13px;
 }
