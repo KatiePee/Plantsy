@@ -7,11 +7,9 @@ import { singleProductsThunk } from "../../store/products";
 import MyStarRating from "../helpers/MyStarRating";
 
 export default function CreateReviewModal({ props: { product, user } }) {
-  const history = useHistory();
   const { closeModal } = useModal();
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
-  const [activeStars, setActiveStars] = useState(null);
   const [errors, setErrors] = useState(false);
   const [showError, setShowError] = useState(false);
 
@@ -21,14 +19,10 @@ export default function CreateReviewModal({ props: { product, user } }) {
   review.length > 9 || (disable = true);
   stars || (disable = true);
 
-  let formErrors = {};
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newReview = dispatch(
-      createReviewThunk({ review, stars }, product.id)
-    );
+    const newReview = dispatch(createReviewThunk({ review, stars }, product.id));
     newReview.errors
       ? setErrors(newReview.errors)
       : newReview
