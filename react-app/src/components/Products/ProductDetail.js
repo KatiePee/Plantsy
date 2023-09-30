@@ -30,7 +30,7 @@ const ProductDetail = () => {
   const reviewsState = useSelector((state) => state.reviews.product);
   const user = useSelector((state) => state.session.user);
   const wishlist = useSelector((state) => state.wishlist);
-  const reviews = reviewsState ? Object.values(reviewsState) : [];
+  const reviews = reviewsState ? Object.values(reviewsState).reverse() : [];
   const { setModalContent, setOnModalClose } = useModal();
 
   useEffect(() => {
@@ -61,10 +61,6 @@ const ProductDetail = () => {
     numReviews,
     avgRating,
   } = product;
-
-  //TODO: set up preview image
-  const image = productImages[0];
-  const arr = [1, 2, 3, 4, 5];
 
   const inWishlist = product.id in wishlist;
   const handleWishlist = async (e) => {
@@ -166,38 +162,26 @@ const ProductDetail = () => {
 
         <div className="product-detail__reviews-wrapper">
           <h3>Reviews </h3>
-          <div className="product-detail__avg-rating">
-            <MyStarRating
-          stars={avgRating}
-          canChange={false}
-          />{" "}
-            <span className="product-detail__num-reviews"> ({numReviews})</span>
-            {!isOwner && !hasLeftReview && ( <span onClick={() => user ? setModalContent(<ReviewModal role={"create"} product={product} />) : setModalContent(<LoginFormModal />)}>
-                <i class="fa-regular fa-pen-to-square"></i>Leave a Review
-            </span>
-              // <OpenModalButton
-              //   buttonText="Post Your Review"
-              //   modalComponent={
-              //     user ? (
-              //       <CreateReviewModal props={{ product, user}} />
-              //     ) : (
-              //       <LoginFormModal />
-              //     )
-              //   }
-              // />
+          <div className="product-detail__reviews-header">
+            <div className="product-detail__avg-rating">
+              <MyStarRating
+            stars={avgRating}
+            canChange={false}
+            />{" "}
+              <span className="product-detail__num-reviews"> ({numReviews})</span>
+            </div>
+            {!isOwner && !hasLeftReview && (
+              <div  className='product-detail__leave-review' onClick={() => user ? setModalContent(<ReviewModal role={"create"} product={product} />) : setModalContent(<LoginFormModal />)}>
+                <i class="fa-regular fa-pen-to-square"></i>Post Your Review
+            </div>
             )}
           </div>
-           <OpenModalButton
-                buttonText="Test"
-                modalComponent={ <ReviewModal role={"create"} product={product} />}
-            />
+
           
-              
-          <div className="product-detail__reviews">
             {reviews.map((review) => (
               <ReviewCard review={review} key={review.id} />
             ))}
-          </div>
+         
         </div>
       </div>
     </>

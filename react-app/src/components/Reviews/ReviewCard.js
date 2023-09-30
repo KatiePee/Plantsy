@@ -13,17 +13,25 @@ import "./Reviews.css";
 const ReviewCard = ({ review }) => {
   const user = useSelector((state) => state.session.user);
   const { setModalContent, setOnModalClose } = useModal();
+    const _getMonth = (date) => {
+    const event = new Date(date);
+    const month = event.toLocaleString('default', { month: 'long' });
+    const year = event.toLocaleString('default', { year: 'numeric' });
+    const day = event.toLocaleString('default', {day: 'numeric'})
+    return `${month} ${day}, ${year}`
+  }
+
   return (
     <div className="product-detail__reviews">
-      <p>{review.user.firstName}</p>
-      <span>{review.createdAt}</span>
-      <p className="review__stars"> {review.review} </p>
       <div className="review__stars">
         <MyStarRating
           stars={review.stars}
           canChange={false}
           />{" "}
       </div>
+      <p className="review__stars"> {review.review} </p>
+      <p className="review-name">{review.user.firstName} <span>{_getMonth(review.createdAt)}</span></p>
+      
        
       {user && user.id == review.userId && (
         <ul className="review-buttons">
