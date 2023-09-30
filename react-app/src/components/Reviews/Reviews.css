@@ -1,6 +1,9 @@
 .review__stars {
   overflow-wrap: break-word;
   word-break: break-word;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 
@@ -8,8 +11,8 @@
 .review-buttons {
   display: flex;
   gap: 1rem;
-  margin-bottom: .5rem;
-  margin-top: .5rem;
+  /* margin-bottom: .5rem; */
+  /* margin-top: .5rem; */
 }
 
 .review-buttons>li {
