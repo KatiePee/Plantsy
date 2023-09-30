@@ -5,6 +5,8 @@ import DeleteReviewModal from "./DeleteReveiw";
 import StarRatings from "react-star-ratings";
 import { useModal } from "../../context/Modal";
 import MyStarRating from "../helpers/MyStarRating";
+import ReviewModal from "../Reviews/ReviewModal";
+
 
 import "./Reviews.css";
 
@@ -33,7 +35,7 @@ const ReviewCard = ({ review }) => {
             <i class="fa-solid fa-trash-can"></i>Delete
           </li>
           <li
-            onClick={() => setModalContent(<EditReviewModal prop={review} />)}
+            onClick={() => setModalContent(<ReviewModal role={"edit"} prodReview={review} />)}
           >
             <i class="fa-regular fa-pen-to-square"></i>Edit
           </li>

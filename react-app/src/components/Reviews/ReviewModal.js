@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createReviewThunk } from "../../store/reviews";
+import { createReviewThunk, editReviewThunk } from "../../store/reviews";
 import { singleProductsThunk } from "../../store/products";
 import MyStarRating from "../helpers/MyStarRating";
-// role = create
-//role = edit
-//create = {product, user}
-//edit = { review }
 
-export default function ReviewModal({role, product}) {
+export default function ReviewModal({role, product, prodReview}) {
   const { closeModal } = useModal();
-  const [review, setReview] = useState(role?.edit?.review.review || '');
-  const [stars, setStars] = useState(role?.edit?.review.stars || 0);
+  const [review, setReview] = useState(prodReview?.review || '');
+  const [stars, setStars] = useState(prodReview?.stars || 0);
   const [errors, setErrors] = useState(false);
   const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
@@ -24,11 +20,11 @@ export default function ReviewModal({role, product}) {
   const handleSubmit = (e) => {
   e.preventDefault();
 
-  const newReview = dispatch(createReviewThunk({ review, stars }, product.id));
+  const newReview = role === 'create' ? dispatch(createReviewThunk({ review, stars }, product?.id)) : dispatch(editReviewThunk({ review, stars }, prodReview?.id));
   newReview.errors
     ? setErrors(newReview.errors)
     : newReview
-        .then(() => dispatch(singleProductsThunk(product.id)))
+        .then(() => dispatch(singleProductsThunk(role === "create" ? product.id : prodReview.productId)))
         .then(closeModal);
   };
 
@@ -39,7 +35,6 @@ export default function ReviewModal({role, product}) {
       setShowError(false);
     }
   };
-console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~~~~~~~~~ role: ', role, role === 'create')
   return (
     <div className="modal-card">
       <h2>{role === "create" ? 'Leave A Review' : 'Edit Your Review'}</h2>

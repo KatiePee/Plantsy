@@ -172,17 +172,19 @@ const ProductDetail = () => {
           canChange={false}
           />{" "}
             <span className="product-detail__num-reviews"> ({numReviews})</span>
-            {!isOwner && !hasLeftReview && (
-              <OpenModalButton
-                buttonText="Post Your Review"
-                modalComponent={
-                  user ? (
-                    <CreateReviewModal props={{ product, user}} />
-                  ) : (
-                    <LoginFormModal />
-                  )
-                }
-              />
+            {!isOwner && !hasLeftReview && ( <span onClick={() => user ? setModalContent(<ReviewModal role={"create"} product={product} />) : setModalContent(<LoginFormModal />)}>
+                <i class="fa-regular fa-pen-to-square"></i>Leave a Review
+            </span>
+              // <OpenModalButton
+              //   buttonText="Post Your Review"
+              //   modalComponent={
+              //     user ? (
+              //       <CreateReviewModal props={{ product, user}} />
+              //     ) : (
+              //       <LoginFormModal />
+              //     )
+              //   }
+              // />
             )}
           </div>
            <OpenModalButton
