@@ -6,17 +6,16 @@ import OpenModalButton from "../OpenModalButton";
 import EditProductModal from "./EditProductModal";
 import DeleteProductModal from "./DeleteProductModal";
 import { productReviewsThunk } from "../../store/reviews";
-import {
-  addToWishlistThunk,
-  removeFromWishlistThunk,
-  myWishlistThunk,
-} from "../../store/wishlist";
+import EditReviewModal from "../Reviews/EditReviewModal";
+import { addToWishlistThunk, removeFromWishlistThunk, myWishlistThunk} from "../../store/wishlist";
 import ReviewCard from "../Reviews/ReviewCard";
 import CreateReviewModal from "../Reviews/CreateReviewModal";
 import LoginFormModal from "../LoginFormModal";
-import StarRatings from "react-star-ratings";
 import { useModal } from "../../context/Modal";
 import { addToCartThunk } from "../../store/cart";
+import MyStarRating from "../helpers/MyStarRating";
+
+import ReviewModal from "../Reviews/ReviewModal";
 
 import "./Products.css";
 import CartPane from "../Cart/CartPane";
@@ -31,7 +30,7 @@ const ProductDetail = () => {
   const reviewsState = useSelector((state) => state.reviews.product);
   const user = useSelector((state) => state.session.user);
   const wishlist = useSelector((state) => state.wishlist);
-  const reviews = reviewsState ? Object.values(reviewsState) : [];
+  const reviews = reviewsState ? Object.values(reviewsState).reverse() : [];
   const { setModalContent, setOnModalClose } = useModal();
 
   useEffect(() => {
@@ -62,10 +61,6 @@ const ProductDetail = () => {
     numReviews,
     avgRating,
   } = product;
-
-  //TODO: set up preview image
-  const image = productImages[0];
-  const arr = [1, 2, 3, 4, 5];
 
   const inWishlist = product.id in wishlist;
   const handleWishlist = async (e) => {
@@ -167,42 +162,26 @@ const ProductDetail = () => {
 
         <div className="product-detail__reviews-wrapper">
           <h3>Reviews </h3>
-          <div className="product-detail__avg-rating">
-            <StarRatings
-              rating={avgRating}
-              starRatedColor="var(--color-salmon)"
-              starSpacing="2px"
-              svgIconPath="M63.893,24.277c-0.238-0.711-0.854-1.229-1.595-1.343l-19.674-3.006L33.809,1.15
-  C33.479,0.448,32.773,0,31.998,0s-1.48,0.448-1.811,1.15l-8.815,18.778L1.698,22.935c-0.741,0.113-1.356,0.632-1.595,1.343
-  c-0.238,0.71-0.059,1.494,0.465,2.031l14.294,14.657L11.484,61.67c-0.124,0.756,0.195,1.517,0.822,1.957
-  c0.344,0.243,0.747,0.366,1.151,0.366c0.332,0,0.666-0.084,0.968-0.25l17.572-9.719l17.572,9.719c0.302,0.166,0.636,0.25,0.968,0.25
-  c0.404,0,0.808-0.123,1.151-0.366c0.627-0.44,0.946-1.201,0.822-1.957l-3.378-20.704l14.294-14.657
-  C63.951,25.771,64.131,24.987,63.893,24.277z"
-              svgIconViewBox="0 0 64 64"
-              numberOfStars={5}
-              starDimension="15px"
-              name="rating"
+          <div className="product-detail__reviews-header">
+            <div className="product-detail__avg-rating">
+              <MyStarRating
+            stars={avgRating}
+            canChange={false}
             />{" "}
-            <span className="product-detail__num-reviews"> ({numReviews})</span>
+              <span className="product-detail__num-reviews"> ({numReviews})</span>
+            </div>
             {!isOwner && !hasLeftReview && (
-              <OpenModalButton
-                buttonText="Post Your Review"
-                modalComponent={
-                  user ? (
-                    <CreateReviewModal props={{ product, user }} />
-                  ) : (
-                    <LoginFormModal />
-                  )
-                }
-              />
+              <div  className='product-detail__leave-review' onClick={() => user ? setModalContent(<ReviewModal role={"create"} product={product} />) : setModalContent(<LoginFormModal />)}>
+                <i class="fa-regular fa-pen-to-square"></i>Post Your Review
+            </div>
             )}
           </div>
 
-          <div className="product-detail__reviews">
+          
             {reviews.map((review) => (
               <ReviewCard review={review} key={review.id} />
             ))}
-          </div>
+         
         </div>
       </div>
     </>
