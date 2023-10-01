@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Product, User, ProductImages, db, Review
 from app.forms import ProductForm, ReviewForm
 from .auth_routes import validation_errors_to_error_messages
+from .aws_helpers import (upload_file_to_s3, get_unique_filename, remove_file_from_s3)
 
 product_routes = Blueprint('products', __name__)
 
@@ -90,6 +91,7 @@ def create_product():
     err_obj = {}
     if form.validate_on_submit():
 
+
         new_product = Product(
             user_id=current_user.id,
             title=form.data['title'],
@@ -104,21 +106,24 @@ def create_product():
 
         # product['productImages'] =[]
 
-        image = form.data['image']
-        # image1 = form.data['image1']
-        # image2 = form.data['image2']
-        # image3 = form.data['image3']
-        # image4 = form.data['image4']
+        #code before aws stuff
+        # image = form.data['image']
+      
+        # new_image = ProductImages(
+        #         product_id = product['id'],
+        #         image_url = image
+        #     )
 
-        # images = [form.data['image'],form.data['image1'],form.data['image2'],form.data['image3'],form.data['image4']]
+        image = form.data["image"]
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        print(upload)
 
-        # change this with aws later
-        # for image in images:
-            # if image is not None:
         new_image = ProductImages(
                 product_id = product['id'],
-                image_url = image
+                image_url = upload["url"]
             )
+        
 
         db.session.add(new_image)
         db.session.commit()
@@ -176,6 +181,10 @@ def delete_product(id):
     if current_user.id != product.user_id:
         return {'errors': "unauthorized"}, 401
     
+    product_images_list = [product.product_image.to_dict() for product.product_image in product.product_images]
+
+    [remove_file_from_s3(product_image["imageUrl"]) for product_image in product_images_list]
+
     db.session.delete(product)
     db.session.commit()
     return {'message': 'Product successfully deleted'}

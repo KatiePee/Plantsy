@@ -138,6 +138,15 @@ export default function CreateProduct() {
             value={image}
             onChange={(e) => setImage(e.target.value)}
           />
+          <p>TEST AWS IMAGE UPLOAD</p>
+            <input
+                id="image"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => setImage(e.target.files[0])}
+                className="image-upload"
+              />
           <p className="errors form__errors">{errors.image}</p>
         </div>
         {/* <div className="product-form-btn-wrapper"> */}
