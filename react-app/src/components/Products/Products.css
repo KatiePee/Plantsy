@@ -218,3 +218,9 @@ div .product-detail__reviews-wrapper {
   font-size: 16px;
   cursor: pointer;
 }
+
+.image-test-input {
+  height: 200px;
+  width: 200px;
+  background-color: pink;
+}

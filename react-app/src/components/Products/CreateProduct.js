@@ -66,7 +66,7 @@ export default function CreateProduct() {
 
 
   }
-
+console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file:', image)
 
   return (
     <div className="product-form__wrapper">
@@ -149,10 +149,24 @@ export default function CreateProduct() {
               />
           <p className="errors form__errors">{errors.image}</p>
         </div>
+        <input 
+            className="image-test-input"
+            id="image"
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => setImage(e.target.files[0])}
+        />
+        {image && (
+          <img src={URL.createObjectURL(image)} />
+        )}
+          
+       
         {/* <div className="product-form-btn-wrapper"> */}
         <button className=" form-button signup-btn" type='submit'>
           Create Product
         </button>
+        
         {/* </div> */}
       </form>
     </div>
