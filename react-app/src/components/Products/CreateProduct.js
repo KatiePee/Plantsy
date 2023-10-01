@@ -156,6 +156,7 @@ console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file:', image)
             accept="image/*"
             multiple
             onChange={(e) => setImage(e.target.files[0])}
+            
         />
         {image && (
           <img src={URL.createObjectURL(image)} />
