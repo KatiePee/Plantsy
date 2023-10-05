@@ -16,9 +16,6 @@ def products():
     products_list = []
     for product in products:
         product_dic = product.to_dict()
-        # product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
-        # product_dic['seller'] = product.user.to_dict()
-        # del product_dic['seller']['id']
         product_dic['numReviews'] = len(product.reviews)
         if product.reviews:
             avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
@@ -41,9 +38,6 @@ def current_user_products():
     products_list = []
     for product in products:
         product_dic = product.to_dict()
-        # product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
-        # product_dic['seller'] = product.user.to_dict()
-        # del product_dic['seller']['id']
         product_dic['numReviews'] = len(product.reviews)
         if product.reviews:
             avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
@@ -65,9 +59,6 @@ def single_product(id):
 
     product = Product.query.get(id)
     product_dic = product.to_dict()
-    # product_dic["productImages"] = [product.product_image.to_dict() for product.product_image in product.product_images]
-    # product_dic['seller'] = product.user.to_dict()
-    # del product_dic['seller']['id']
     product_dic['numReviews'] = len(product.reviews)
     if product.reviews:
         avg_rating = sum(review.stars for review in product.reviews) / len(product.reviews)
@@ -83,7 +74,6 @@ def create_product():
     Create a product using the post form
     """
     request_body = request.data  # Access the raw request body
-    # json_data = request.get_json()  # Parse request body as JSON
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     product = {}

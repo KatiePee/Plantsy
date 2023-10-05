@@ -63,10 +63,16 @@ export default function CreateProduct() {
         history.push('/users')
       }
     } else setErrors(formErrors)
-
-
   }
-console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file:', image)
+  image && console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file: ->', URL.createObjectURL(image))
+  image && console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file is string: ->', `is this a sting? ---> ${URL.createObjectURL(image)}`)
+  const  imageString = image && URL.createObjectURL(image)
+
+  const imageStyle = {
+    backgroundImage : 'url(`{imageString}`)',
+    width: '200px',
+    height: '200px'
+  }
 
   return (
     <div className="product-form__wrapper">
@@ -149,20 +155,24 @@ console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file:', image)
               />
           <p className="errors form__errors">{errors.image}</p>
         </div>
+        <label for="image-upload-test" className="custom-file-upload">
+            
+        </label>
         <input 
             className="image-test-input"
-            id="image"
+            id="image-upload-test"
             type="file"
             accept="image/*"
             multiple
             onChange={(e) => setImage(e.target.files[0])}
-            
         />
-        {image && (
+        {/* {image && (
           <img src={URL.createObjectURL(image)} />
-        )}
+        )} */}
           
-       
+       {image && (
+        <div style={imageStyle}></div>
+       )}
         {/* <div className="product-form-btn-wrapper"> */}
         <button className=" form-button signup-btn" type='submit'>
           Create Product

@@ -223,4 +223,13 @@ div .product-detail__reviews-wrapper {
   height: 200px;
   width: 200px;
   background-color: pink;
+  display: none;
+}
+
+.custom-file-upload {
+  height: 200px;
+  width: 200px;
+  /* background-color: pink; */
+  background-image: url('../../photos/add-photo.png');
+  background-size: 200px 200px;
 }
