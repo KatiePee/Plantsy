@@ -69,9 +69,9 @@ export default function CreateProduct() {
   const  imageString = image && URL.createObjectURL(image)
 
   const imageStyle = {
-    backgroundImage : 'url(`{imageString}`)',
     width: '200px',
-    height: '200px'
+    height: '200px',
+    objectFit: 'cover'
   }
 
   return (
@@ -171,7 +171,7 @@ export default function CreateProduct() {
         )} */}
           
        {image && (
-        <div style={imageStyle}></div>
+        <img style={imageStyle} src={URL.createObjectURL(image)} />
        )}
         {/* <div className="product-form-btn-wrapper"> */}
         <button className=" form-button signup-btn" type='submit'>
