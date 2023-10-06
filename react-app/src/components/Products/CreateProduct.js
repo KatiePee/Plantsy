@@ -22,6 +22,7 @@ export default function CreateProduct() {
   const dispatch = useDispatch();
   let formErrors = {}
 
+  //form validations and errors
   const _handleErrors = () => {
     title || (formErrors.title = 'Title is required.');
     title.length < 225 || (formErrors.title = 'Title must be less than 50 character.');
@@ -37,8 +38,7 @@ export default function CreateProduct() {
     e.preventDefault();
     await _handleErrors();
     console.log('🎃~~~~in handle submite after err fun call ~~', errors)
-    // const images = []
-    // images.push(image)
+
 
     console.log('👹~~👹~~👹~~👹~~ form errors', formErrors)
     console.log('👹~~👹~~👹~~👹~~ des . length', title.length)
@@ -64,14 +64,15 @@ export default function CreateProduct() {
       }
     } else setErrors(formErrors)
   }
-  image && console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file: ->', URL.createObjectURL(image))
-  image && console.log('🍎~~🍎~~🍎~~🍎~~🍎~~~~~ image file is string: ->', `is this a sting? ---> ${URL.createObjectURL(image)}`)
-  const  imageString = image && URL.createObjectURL(image)
 
+
+  //add image styling to image files for users to preview image
   const imageStyle = {
     width: '200px',
     height: '200px',
-    objectFit: 'cover'
+    objectFit: 'cover',
+    borderRadius: '10px',
+    boxShadow: 'var(--shadow)'
   }
 
   return (
@@ -155,30 +156,24 @@ export default function CreateProduct() {
               />
           <p className="errors form__errors">{errors.image}</p>
         </div>
-        <label for="image-upload-test" className="custom-file-upload">
-            
-        </label>
+      <label for="image-upload-test" className="custom-file-upload">   
         <input 
             className="image-test-input"
             id="image-upload-test"
             type="file"
             accept="image/*"
             multiple
-            onChange={(e) => setImage(e.target.files[0])}
-        />
-        {/* {image && (
-          <img src={URL.createObjectURL(image)} />
-        )} */}
-          
-       {image && (
-        <img style={imageStyle} src={URL.createObjectURL(image)} />
-       )}
-        {/* <div className="product-form-btn-wrapper"> */}
+            onChange={(e) => e.target.files[0] && setImage(e.target.files[0])}
+            />
+        {image && (
+          <img src={URL.createObjectURL(image)} style={imageStyle} />
+        )}
+        </label>
+  
         <button className=" form-button signup-btn" type='submit'>
           Create Product
         </button>
         
-        {/* </div> */}
       </form>
     </div>
   )
