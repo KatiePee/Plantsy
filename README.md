@@ -18,8 +18,8 @@
 ## App
 ![Alt text](plantsy1.png)
 ![Alt text](plantsy2.png)
-![Alt text](plantsy3.png)
-![Alt text](plantsy4.png)
+![Alt text](platsy3.png)
+![Alt text](platsy4.png)
 
 
 ## Features
@@ -28,7 +28,7 @@
 * Adding purchases to a cart: Users can add plants to their cart while browsing and proceed to checkout later.
 * Favoriting plants: Users can mark plants as favorites to easily access them later.
 
-##Contact
+## Contact
   * Katie Piele:
     * LinkedIn: https://www.linkedin.com/in/katie-piele/
     * GitHub: https://github.com/KatiePee/Plantsy
