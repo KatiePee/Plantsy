@@ -10,10 +10,10 @@ export default function CreateProduct() {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
-  // const [image1, setImage1] = useState('');
-  // const [image2, setImage2] = useState('');
-  // const [image3, setImage3] = useState('');
-  // const [image4, setImage4] = useState('');
+  const [image1, setImage1] = useState('');
+  const [image2, setImage2] = useState('');
+  const [image3, setImage3] = useState('');
+  const [image4, setImage4] = useState('');
 
   const [errors, setErrors] = useState('123');
   console.log('👤~~~~~~~~~ first error', errors)
@@ -22,6 +22,7 @@ export default function CreateProduct() {
   const dispatch = useDispatch();
   let formErrors = {}
 
+  //form validations and errors
   const _handleErrors = () => {
     title || (formErrors.title = 'Title is required.');
     title.length < 225 || (formErrors.title = 'Title must be less than 50 character.');
@@ -37,8 +38,7 @@ export default function CreateProduct() {
     e.preventDefault();
     await _handleErrors();
     console.log('🎃~~~~in handle submite after err fun call ~~', errors)
-    // const images = []
-    // images.push(image)
+
 
     console.log('👹~~👹~~👹~~👹~~ form errors', formErrors)
     console.log('👹~~👹~~👹~~👹~~ des . length', title.length)
@@ -63,10 +63,17 @@ export default function CreateProduct() {
         history.push('/users')
       }
     } else setErrors(formErrors)
-
-
   }
 
+
+  //add image styling to image files for users to preview image
+  const imageStyle = {
+    width: '200px',
+    height: '200px',
+    objectFit: 'cover',
+    borderRadius: '10px',
+    boxShadow: 'var(--shadow)'
+  }
 
   return (
     <div className="product-form__wrapper">
@@ -125,26 +132,29 @@ export default function CreateProduct() {
           <p className="errors form__errors">{errors.price}</p>
         </div>
         <div className="input-wrapper product-form">
-          <label>
+           <label>
             Photos:
           </label>
           <p className="form-sublabel">
             Use a photo to show your item's most important qualities.
           </p>
-          <input
-            type="text"
-            className="input-info product-form__image-input"
-            placeholder="Product image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-          <p className="errors form__errors">{errors.image}</p>
+          <label for="image0" className="custom-file-upload">   
+            <input 
+                className="image-test-input"
+                id="image0"
+                type="file"
+                accept="image/*"
+                onChange={(e) => e.target.files[0] && setImage(e.target.files[0])}
+                />
+            {image && (<img src={URL.createObjectURL(image)} style={imageStyle} />)}
+          </label>
+
         </div>
-        {/* <div className="product-form-btn-wrapper"> */}
+  
         <button className=" form-button signup-btn" type='submit'>
           Create Product
         </button>
-        {/* </div> */}
+        
       </form>
     </div>
   )

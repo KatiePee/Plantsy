@@ -50,23 +50,6 @@ const ReviewCard = ({ review }) => {
       <p className="review__stars"> {review.review} </p>
       <p className="review-name">{review.user.firstName} - <span>{_getMonth(review.createdAt)}</span></p>
       
-       
-      {/* {user && user.id == review.userId && (
-        <ul className="review-buttons">
-          <li
-            onClick={() =>
-              setModalContent(<DeleteReviewModal review={review} />)
-            }
-          >
-            <i class="fa-solid fa-trash-can"></i>Delete
-          </li>
-          <li
-            onClick={() => setModalContent(<ReviewModal role={"edit"} prodReview={review} />)}
-          >
-            <i class="fa-regular fa-pen-to-square"></i>Edit
-          </li>
-        </ul>
-      )} */}
     </div>
   );
 };

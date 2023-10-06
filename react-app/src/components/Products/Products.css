@@ -218,3 +218,27 @@ div .product-detail__reviews-wrapper {
   font-size: 16px;
   cursor: pointer;
 }
+
+.image-test-input {
+  display: none;
+}
+
+.custom-file-upload {
+  height: 200px;
+  width: 200px;
+  background-image: url('../../photos/add-photo.png');
+  background-size: 200px 200px;
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+}
+
+.custom-file-upload:hover {
+  box-shadow: var(--shadow-hover);
+  cursor: pointer;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
