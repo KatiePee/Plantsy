@@ -220,9 +220,6 @@ div .product-detail__reviews-wrapper {
 }
 
 .image-test-input {
-  height: 200px;
-  width: 200px;
-  background-color: pink;
   display: none;
 }
 
@@ -238,4 +235,10 @@ div .product-detail__reviews-wrapper {
 .custom-file-upload:hover {
   box-shadow: var(--shadow-hover);
   cursor: pointer;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
